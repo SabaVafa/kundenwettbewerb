@@ -1,0 +1,34 @@
+# This repo holds the Kundenwettbewerb prototype only:
+#   index.html · robots.txt
+# Everything below is a separate Metzler project (or local source) that shares
+# this working folder and must stay out of the repo.
+#
+# Local hero-image source (already downscaled + embedded in build/data/hero-carousel.json):
+/Carousel Images/
+#
+# Other Metzler projects that must not be mixed in:
+/Awards/
+/BlackFriday/
+/ICONS/
+/Logo/
+/Paymentshipping logos/
+/Reviews/
+/Trust badges/
+/XDM10 Banner/
+/assets/
+/data/
+/images/
+/home.html
+/styles-v2.css
+
+# internal build tooling & design-system docs — not for the public portfolio
+build/
+design-system/
+PROJECT.md
+*-brief.md
+
+# local Claude Code session config — never publish
+.claude/
+
+# local project notes (contain local paths) — keep out of the public repo
+CLAUDE.md
