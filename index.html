@@ -3454,7 +3454,7 @@ p{margin:0 0 1rem;}
 /* CTAs mirror the About-Us hero: equal-width pair, 44px tall, primary teal +
    secondary as a 1.5px inset white outline (not a solid border) */
 .gal-hero__cta{display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:1.25rem;}
-.gal-hero__cta .btn{flex:1 1 0; min-width:0; height:2.75rem; padding-inline:2rem; justify-content:center; font-size:1rem; font-weight:500;}
+.gal-hero__cta .btn{flex:1 1 0; min-width:0; max-width:calc(50% - 0.5rem); height:2.75rem; padding-inline:2rem; justify-content:center; font-size:1rem; font-weight:500;}
 .gal-hero .btn-secondary{color:var(--color-white); border:none; box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.78);}
 .gal-hero .btn-secondary:hover{background:rgba(255,255,255,0.1); color:var(--color-white); box-shadow:inset 0 0 0 1.5px var(--color-white);}
 .gal-hero .btn-secondary:active{background:rgba(255,255,255,0.1); color:var(--color-white);}
@@ -3534,7 +3534,7 @@ p{margin:0 0 1rem;}
 /* responsive: below 1280px the split gets too short for the copy — stack the
    carousel on top (full-bleed 16/9) like the About-Us hero, copy below */
 @media(max-width:1279px){ .gal-hero__grid{grid-template-columns:1fr; gap:2rem; aspect-ratio:auto; padding-block:0 2.5rem;} .gal-hero__copy{max-width:none; align-self:auto; padding-block:0;} .gal-hero__stage{display:block; order:-1; margin-inline:calc(-1 * clamp(1.5rem, 4vw, 3.5rem));} .gal-hero__slider{height:auto; aspect-ratio:16 / 9; min-height:0;} .gal-hero__meta{margin-top:0.75rem;} }
-@media(max-width:48rem){ .gal-hero .display{font-size:1.5rem;} .gal-hero__meta{justify-content:center; text-align:center;} .gal-hero__slider{aspect-ratio:3 / 2;} .gal-hero__cta{flex-direction:column;} .gal-hero__cta .btn{width:100%;} }
+@media(max-width:48rem){ .gal-hero .display{font-size:1.5rem;} .gal-hero__meta{justify-content:center; text-align:center;} .gal-hero__slider{aspect-ratio:3 / 2;} .gal-hero__cta{flex-direction:column;} .gal-hero__cta .btn{max-width:none; width:100%;} }
 @media(max-width:40rem){ .gal-hero__dots{right:0.8rem; bottom:0.9rem;} }
 @media(prefers-reduced-motion:reduce){ .gal-hero__slides.is-anim{transition:none;} .gal-hero__copy > *, .gal-hero__stage{animation:none;} }
 
@@ -4008,7 +4008,6 @@ h1,h2,h3,.display{text-wrap:balance;}
           <p class="gal-hero__lead">Von der Haustür bis zum Gartentor: echte Metzler-Installationen, fotografiert von unseren Kunden aus ganz Deutschland. Tipp auf ein Bild und entdecke jedes verbaute Produkt – zum direkten Nachkaufen.</p>
           <div class="gal-hero__cta">
             <a href="#mitmachen" class="btn btn-primary">Eigenes Foto hochladen</a>
-            <a href="#galerie" class="btn btn-secondary">Galerie ansehen</a>
           </div>
           <p class="gal-hero__meta">
             <span class="gal-hero__meta-strong">47 echte Installationen</span>
@@ -4056,6 +4055,36 @@ h1,h2,h3,.display{text-wrap:balance;}
     </div>
   </section>
 
+  <!-- SIEGERBILD DES MONATS -->
+  <section class="section gal-winner" aria-labelledby="winner-heading">
+    <div class="container">
+      <div class="gal-winner__grid">
+        <div class="gal-winner__media">
+          <span class="gal-winner__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>Siegerbild des Monats</span>
+          <div class="gal-winner__track" data-winner-track><!-- slides injected by JS --></div>
+          <button class="gal-winner__nav" data-winner-nav="prev" type="button" aria-label="Vorheriger Gewinner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="gal-winner__nav" data-winner-nav="next" type="button" aria-label="Nächster Gewinner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          <p class="gal-winner__credit" data-winner-credit></p>
+          <span class="gal-winner__counter" data-winner-counter></span>
+        </div>
+        <div class="gal-winner__body">
+          <p class="gal-winner__eyebrow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span data-winner-eyebrow>Gewinner</span></p>
+          <h2 id="winner-heading" class="gal-winner__title">Unser Gewinnerfoto des Monats</h2>
+          <p class="gal-winner__lead">Jeden Monat kürt unser Team aus allen Einsendungen das schönste Kundenfoto zum Siegerbild des Monats.</p>
+          <div class="gal-winner__cta">
+            <a href="#mitmachen" class="btn btn-primary">Jetzt mitmachen</a>
+            <a href="#galerie" class="btn btn-secondary">Zur Gewinnergalerie</a>
+          </div>
+        </div>
+        <div class="gal-winner__railwrap">
+          <button class="gal-winner__railnav" data-rail-nav="prev" type="button" aria-label="Thumbnails zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="gal-winner__rail" data-winner-thumbs role="group" aria-label="Weitere Gewinnerfotos auswählen"><!-- thumbnails injected by JS --></div>
+          <button class="gal-winner__railnav" data-rail-nav="next" type="button" aria-label="Thumbnails weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FILTER TOOLBAR -->
   <!-- Toolbar sticks only while its gallery scrolls past, then releases at the
        gallery's bottom instead of following the whole page -->
@@ -4087,35 +4116,6 @@ h1,h2,h3,.display{text-wrap:balance;}
     </div>
   </section>
   </div><!-- /.gal-sticky-wrap -->
-
-  <!-- SIEGERBILD DES MONATS -->
-  <section class="section gal-winner" aria-labelledby="winner-heading">
-    <div class="container">
-      <div class="gal-winner__grid">
-        <div class="gal-winner__media">
-          <span class="gal-winner__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>Siegerbild des Monats</span>
-          <div class="gal-winner__track" data-winner-track><!-- slides injected by JS --></div>
-          <button class="gal-winner__nav" data-winner-nav="prev" type="button" aria-label="Vorheriger Gewinner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <button class="gal-winner__nav" data-winner-nav="next" type="button" aria-label="Nächster Gewinner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-          <p class="gal-winner__credit" data-winner-credit></p>
-          <span class="gal-winner__counter" data-winner-counter></span>
-        </div>
-        <div class="gal-winner__body">
-          <p class="gal-winner__eyebrow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span data-winner-eyebrow>Gewinner</span></p>
-          <h2 id="winner-heading" class="gal-winner__title">Unser Gewinnerfoto des Monats</h2>
-          <p class="gal-winner__lead">Jeden Monat kürt unser Team aus allen Einsendungen das schönste Kundenfoto zum Siegerbild des Monats.</p>
-          <div class="gal-winner__cta">
-            <a href="#mitmachen" class="btn btn-primary">Jetzt mitmachen</a>
-          </div>
-        </div>
-        <div class="gal-winner__railwrap">
-          <button class="gal-winner__railnav" data-rail-nav="prev" type="button" aria-label="Thumbnails zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <div class="gal-winner__rail" data-winner-thumbs role="group" aria-label="Weitere Gewinnerfotos auswählen"><!-- thumbnails injected by JS --></div>
-          <button class="gal-winner__railnav" data-rail-nav="next" type="button" aria-label="Thumbnails weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- FOTOWETTBEWERB -->
   <section class="section" id="mitmachen">
@@ -4752,6 +4752,11 @@ h1,h2,h3,.display{text-wrap:balance;}
       grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+  // in-page links to the gallery (winner section) land like a filter change:
+  // toolbar pinned under the header, first row of photos right below it
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#galerie"]'), function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); scrollToResults(); });
+  });
 
   /* ---- Sticky filter toolbar: pin it just below the sticky header (which
      shrinks to ~80px when the page is scrolled) and add a shadow once stuck ---- */
@@ -4890,14 +4895,13 @@ h1,h2,h3,.display{text-wrap:balance;}
     var N = META.length;
     // when the main image is out of view (mobile: thumbnails sit below it), scroll it into view
     // On the stacked (mobile/tablet) layout the image sits above the strip, so any
-    // control scrolls the image up to sit 2px below the sticky nav (header + toolbar).
+    // control scrolls the image up to sit 2px below the sticky header (the section sits
+    // above the gallery, where the filter toolbar isn't stuck).
     function reveal(){
       if(!media || window.innerWidth > 1200) return;
       var header = document.querySelector('.header');
-      var toolbar = document.querySelector('.gal-toolbar');
       var hH = header ? header.getBoundingClientRect().height : 0;
-      var tH = toolbar ? toolbar.getBoundingClientRect().height : 0;
-      var y = window.scrollY + media.getBoundingClientRect().top - hH - tH - 2;
+      var y = window.scrollY + media.getBoundingClientRect().top - hH - 2;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
     function pad(n){ return (n<10?'0':'')+n; }
