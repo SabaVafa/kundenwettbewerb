@@ -3535,7 +3535,7 @@ p{margin:0 0 1rem;}
 /* ============ FILTER TOOLBAR ============ */
 .gal-toolbar{position:sticky; top:var(--gal-sticky-top,0); z-index:40; background:var(--color-white); border-bottom:0.0625rem solid var(--color-graphite-200); transition:box-shadow .18s ease;}
 .gal-toolbar.is-stuck{box-shadow:0 0.25rem 0.75rem rgba(0,0,0,0.07);}
-.gal-toolbar__inner{display:flex; align-items:center; justify-content:space-between; gap:1rem clamp(1.5rem,3vw,2.5rem); padding:0.85rem 0; flex-wrap:nowrap;}
+.gal-toolbar__inner{display:flex; align-items:center; justify-content:space-between; gap:1rem clamp(1.5rem,3vw,2.5rem); padding:1.35rem 0; flex-wrap:nowrap;}
 /* left brand mark — mirrors the About-Us mid nav (msty) chrome: small eyebrow + large title */
 .gal-toolbar__brand{display:flex; align-items:baseline; gap:0.875rem; line-height:1; flex-shrink:0;}
 .gal-toolbar__eyebrow{font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-graphite-600); line-height:1.4;}
@@ -3722,11 +3722,10 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 @media(max-width:60rem){ .gal-ugc__grid{grid-template-columns:1fr; gap:2rem;} }
 
 /* ============ SIEGERBILD DES MONATS (winner spotlight) ============ */
-.gal-winner{background:var(--color-graphite-800); color:var(--color-white); position:relative; overflow:hidden;}
-.gal-winner::before{content:""; position:absolute; top:-30%; right:-10%; width:38rem; height:38rem; z-index:0; background:radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.06), transparent 70%); pointer-events:none;}
+.gal-winner{background:var(--color-paper); color:var(--color-graphite-800); position:relative; overflow:hidden;}
 .gal-winner .container{position:relative; z-index:1;}
 .gal-winner__grid{display:grid; grid-template-columns:21rem minmax(0,27rem) 1fr; gap:2.5rem; align-items:center;}
-.gal-winner__media{position:relative; margin:0; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:1 / 1; background:var(--color-graphite-800); box-shadow:0 1.75rem 3.5rem rgba(0,0,0,0.45);}
+.gal-winner__media{position:relative; margin:0; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:1 / 1; background:var(--color-graphite-800); box-shadow:var(--shadow-lg);}
 .gal-winner__track{position:absolute; inset:0; display:flex; height:100%; will-change:transform;}
 .gal-winner__track.is-anim{transition:transform .7s cubic-bezier(.4,0,.2,1);}
 .gal-winner__slide{position:relative; flex:0 0 100%; height:100%; margin:0; overflow:hidden; cursor:pointer;}
@@ -3745,10 +3744,10 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-winner__nav:hover{background:var(--color-white); color:var(--color-digital-black);}
 .gal-winner__nav:active{background:var(--color-white); color:var(--color-digital-black); transform:translateY(-50%) scale(0.94);}
 .gal-winner__nav svg{width:1.05rem; height:1.05rem;}
-.gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-star); margin:0 0 1rem;}
-.gal-winner__eyebrow svg{width:1rem; height:1rem;}
-.gal-winner__title{font-size:clamp(1.5rem,2.6vw,2.05rem); font-weight:700; line-height:1.25; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1rem;}
-.gal-winner__lead{font-size:1rem; line-height:1.7; color:rgba(255,255,255,0.82); margin:0 0 1.5rem; max-width:34rem;}
+.gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-teal); margin:0 0 1rem;}
+.gal-winner__eyebrow svg{width:1rem; height:1rem; color:var(--color-star);}
+.gal-winner__title{font-size:clamp(1.5rem,2.6vw,2.05rem); font-weight:700; line-height:1.25; letter-spacing:-0.015em; color:var(--color-digital-black); margin:0 0 1rem;}
+.gal-winner__lead{font-size:1rem; line-height:1.7; color:var(--color-graphite-700); margin:0 0 1.5rem; max-width:34rem;}
 .gal-winner__prods-label{font-size:0.6875rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:0 0 0.6rem;}
 .gal-winner__prods{display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.75rem;}
 .gal-winner .pchip{background:rgba(255,255,255,0.96); font-size:0.8125rem; padding:0.35rem 0.8rem;}
@@ -3757,9 +3756,6 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
    secondary as a 1.5px inset white outline */
 .gal-winner__cta{display:flex; flex-wrap:wrap; gap:1rem;}
 .gal-winner__cta .btn{flex:1 1 0; min-width:0; height:2.75rem; padding-inline:2rem; justify-content:center; font-size:1rem; font-weight:500;}
-.gal-winner .btn-secondary{color:var(--color-white); border:none; box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.78);}
-.gal-winner .btn-secondary:hover{background:rgba(255,255,255,0.1); color:var(--color-white); box-shadow:inset 0 0 0 1.5px var(--color-white);}
-.gal-winner .btn-secondary:active{background:rgba(255,255,255,0.1); color:var(--color-white);}
 /* right-side thumbnail rail: fills the remaining width to the gutter and doubles as carousel nav */
 .gal-winner__rail{display:grid; grid-template-columns:repeat(6,1fr); gap:0.5rem; align-content:center;}
 .gal-winner__railwrap{min-width:0;}
@@ -3768,8 +3764,8 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-winner__thumb img{width:100%; height:100%; object-fit:cover; display:block;}
 .gal-winner__thumb:hover{opacity:0.85;}
 .gal-winner__thumb:active{transform:translateY(0.0625rem);}
-.gal-winner__thumb.is-active{opacity:1; outline-color:var(--color-star);}
-.gal-winner__thumb:focus-visible{outline-color:var(--color-white);}
+.gal-winner__thumb.is-active{opacity:1; outline-color:var(--color-teal);}
+.gal-winner__thumb:focus-visible{outline-color:var(--color-teal-700);}
 @media(max-width:75rem){
   .gal-winner__grid{grid-template-columns:21rem 1fr;}
   /* rail becomes a full-width horizontal scroll strip flanked by chevrons */
@@ -3777,9 +3773,9 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
   .gal-winner__rail{flex:1 1 auto; min-width:0; display:flex; gap:0.85rem; padding:0.35rem 0.125rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
   .gal-winner__rail::-webkit-scrollbar{display:none;}
   .gal-winner__thumb{flex:0 0 4.5rem;}
-  .gal-winner__railnav{display:grid; place-items:center; flex:0 0 auto; width:2.25rem; height:2.25rem; cursor:pointer; color:var(--color-white); background:rgba(255,255,255,0.12); border:0.0625rem solid rgba(255,255,255,0.3); border-radius:var(--radius); transition:background .15s ease;}
-  .gal-winner__railnav:hover{background:rgba(255,255,255,0.22);}
-  .gal-winner__railnav:active{background:rgba(255,255,255,0.3);}
+  .gal-winner__railnav{display:grid; place-items:center; flex:0 0 auto; width:2.25rem; height:2.25rem; cursor:pointer; color:var(--color-graphite-800); background:var(--color-white); border:0.0625rem solid var(--color-graphite-300); border-radius:var(--radius); transition:background .15s ease;}
+  .gal-winner__railnav:hover{background:var(--color-graphite-100);}
+  .gal-winner__railnav:active{background:var(--color-graphite-200);}
   .gal-winner__railnav svg{width:1.05rem; height:1.05rem;}
 }
 @media(max-width:60rem){ .gal-winner__grid{grid-template-columns:1fr; gap:2rem;} .gal-winner__media{order:-1;} }
