@@ -3694,6 +3694,7 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
    Label and error text are aligned to the field (fixed rem), not to the wrapper, so a hint inside the wrapper does not move them. */
 .form-control { display: block; width: 100%; padding: 0.7rem 0.9375rem; font-family: var(--font-family); font-size: 1rem; line-height: 1.4; color: var(--color-black); background: var(--color-white); border: 0.0625rem solid var(--color-graphite-300); border-radius: var(--radius); box-sizing: border-box; outline: none; transition: border-color 0.15s; }
 .form-control:focus { border-color: var(--color-teal); }
+.form-control:focus-visible { outline: none; }   /* kit: focus = teal border only; keeps the page-wide :focus-visible ring off the fields */
 .form-control-lg { padding: 0.8rem 1rem; font-size: 1.125rem; }
 .form-control-sm { padding: 0.35rem 0.75rem; font-size: 0.875rem; }
 .field-wrapper { position: relative; }
