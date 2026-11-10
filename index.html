@@ -3689,31 +3689,59 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 /* ============ UGC ============ */
 .gal-ugc__grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:start;}
 .gal-ugc__grid > *{min-width:0;} /* allow columns to shrink below content min on narrow screens */
-.gal-ugc__card{background:var(--color-white); border:0.0625rem solid var(--color-graphite-200); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:1.75rem;}
+.gal-ugc__card{background:var(--color-white); border:0.0625rem solid var(--color-graphite-200); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:1.75rem; container-type:inline-size;}
+/* ===== Metzler UI Kit 1.64 · FormElements (copied as shipped in bundle.css) ===== */
+.form-control { display: block; width: 100%; padding: 0.7rem 0.9375rem; font-family: var(--font-family); font-size: 1rem; color: var(--color-black); background: var(--color-white); border: 0.0625rem solid var(--color-graphite-300); border-radius: var(--radius); box-sizing: border-box; outline: none; transition: border-color 0.15s; }
+.form-control:focus { border-color: var(--color-teal); }
+.form-control.error { border-color: #C90000; }
+.field-wrapper { position: relative; }
+.field-wrapper label { position: absolute; left: 0.9375rem; top: 50%; transform: translateY(-50%); font-family: var(--font-family); font-size: 1rem; color: var(--color-graphite-500); pointer-events: none; transition: all 0.15s ease; background: transparent; padding: 0; line-height: 1.4; white-space: nowrap; z-index: 1; }
+.field-wrapper .form-control:focus + label,
+.field-wrapper .form-control:not(:placeholder-shown) + label { top: -0.5625rem; left: 0.6875rem; transform: none; font-size: 0.75rem; color: var(--color-black); background: var(--color-white); padding: 0 0.3125rem; }
+.field__error { position: absolute; bottom: -0.4375rem; right: 0.6875rem; background: var(--color-white); padding: 0 0.3125rem; font-family: var(--font-family); font-size: 0.75rem; color: #C90000; white-space: nowrap; line-height: 0.875rem; }
+.field__hint { display: block; margin-top: 0.3125rem; font-family: var(--font-family); font-size: 0.8125rem; color: var(--color-graphite-600); line-height: 1.45; }
+/* Kit checkbox */
+.checkbox-wrapper { display: inline-flex; align-items: center; gap: 0.5625rem; cursor: pointer; font-family: var(--font-family); font-size: 1rem; color: var(--color-black); user-select: none; }
+.checkbox { width: 1.5625rem; height: 1.5625rem; border-radius: var(--radius); border: 0.0625rem solid var(--color-graphite-300); background: var(--color-white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box; transition: background 0.12s; }
+.checkbox.checked-filter { background: var(--color-teal); border-color: var(--color-teal); }
+/* Kit Button · .btn-block */
+.btn-block { display: flex; text-align: center; width: 100%; }
+/* ===== Metzler UI Kit 1.64 · Alerts (success + danger variants used here) ===== */
+.alert { --a: var(--color-teal); --a-title: var(--color-teal); --a-bg: color-mix(in srgb, var(--a) 7%, var(--color-white)); --a-line: color-mix(in srgb, var(--a) 28%, var(--color-white)); --a-chip: color-mix(in srgb, var(--a) 14%, var(--color-white)); display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0.875rem 0.75rem 0.75rem; border: 0.0625rem solid var(--a-line); border-radius: var(--radius-lg); background: var(--a-bg); box-shadow: var(--shadow-card); font-family: var(--font-family); }
+.alert-success { --a: var(--color-green); --a-title: color-mix(in srgb, var(--color-green) 72%, black); }
+.alert-danger { --a: var(--color-red); --a-title: var(--color-red-600); }
+.alert__icon { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; display: grid; place-items: center; border-radius: var(--radius-lg); background: var(--a-chip); color: var(--a); }
+.alert__icon svg { width: 1.375rem; height: 1.375rem; }
+.alert__body { flex: 1 1 auto; min-width: 0; }
+.alert__title { margin: 0; font-size: 1rem; font-weight: 700; line-height: 1.35; color: var(--a-title); }
+.alert__text { margin: 0.125rem 0 0; font-size: 0.875rem; line-height: 1.5; color: var(--color-graphite-800); }
+.alert--flat { box-shadow: none; }
+.alert[hidden] { display: none; }
+/* ===== Fotowettbewerb form: layout + glue around the kit parts ===== */
+.gal-field { margin-bottom: 1.5rem; }                     /* room for the floating label of the next field */
+.gal-field--row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@container (min-width: 28rem) { .gal-field--row { grid-template-columns: 1fr 1fr; gap: 1rem; } }  /* names side by side only when both labels fit */
+.field-wrapper.field--error label { color: #C90000; }
+.gal-consent { display: flex; align-items: flex-start; font-size: 0.875rem; line-height: 1.45; color: var(--color-graphite-700); }
+.checkbox-input { position: absolute; width: 0.0625rem; height: 0.0625rem; margin: 0; opacity: 0; pointer-events: none; }
+.checkbox svg { color: var(--color-white); opacity: 0; transition: opacity 0.12s; }
+.checkbox-input:checked + .checkbox { background: var(--color-teal); border-color: var(--color-teal); }  /* = kit .checked-filter */
+.checkbox-input:checked + .checkbox svg { opacity: 1; }
+.checkbox-input:focus-visible + .checkbox { outline: 0.125rem solid var(--color-teal); outline-offset: 0.125rem; }
+.gal-consent.is-error .checkbox, .gal-drop.is-error { border-color: #C90000; }
+.gal-error { display: block; margin-top: 0.3125rem; font-family: var(--font-family); font-size: 0.75rem; line-height: 1.2; color: #C90000; }
+.gal-ugc__card .alert { margin-top: 1rem; }
 .gal-drop{border:0.125rem dashed var(--color-graphite-400); border-radius:var(--radius-lg); background:var(--color-paper); padding:1.5rem; text-align:center; cursor:pointer; transition:border-color .14s, background .14s;}
 .gal-drop:hover{border-color:var(--color-teal); background:var(--color-teal-50);}
-.gal-drop__icon{width:3rem; height:3rem; border-radius:var(--radius-lg); background:rgba(1,82,83,0.08); color:var(--color-teal); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem;}
+.gal-drop__icon{width:2.5rem; height:2.5rem; border-radius:var(--radius-lg); background:rgba(1,82,83,0.08); color:var(--color-teal); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem;}
 .gal-drop__icon svg{width:1.5rem; height:1.5rem;}
 .gal-drop__t{font-weight:600; color:var(--color-graphite-700); margin:0 0 0.5rem; font-size:0.9375rem;}
-.gal-drop__btn{display:inline-flex; align-items:center; justify-content:center; height:2.5rem; padding:0 1.25rem; background:var(--color-teal); color:var(--color-white); border-radius:var(--radius); font-size:0.875rem; font-weight:600;}
 .gal-drop.is-drag{border-color:var(--color-teal); background:var(--color-teal-50);}
-.gal-field{margin-bottom:1rem;}
-.gal-field--row{display:grid; grid-template-columns:1fr 1fr; gap:0.85rem;}
-.gal-field--row > div{min-width:0;} /* let the two inputs shrink below their intrinsic width on very narrow screens */
-.gal-label{display:block; font-size:0.8125rem; font-weight:600; color:var(--color-digital-black); margin:0 0 0.35rem;}
-.gal-req{color:var(--color-metzler-rot); font-weight:400;}
-.gal-field input[type=email], .gal-field input[type=text]{width:100%; min-width:0; height:2.75rem; border:0.0625rem solid var(--color-graphite-300); border-radius:var(--radius); padding:0 0.875rem; font-size:0.9375rem; font-family:var(--font-family); color:var(--color-digital-black); outline:none; transition:border-color .14s, box-shadow .14s;}
-.gal-field input:focus{border-color:var(--color-teal); box-shadow:0 0 0 0.1875rem var(--color-teal-75);}
-.gal-hint{font-size:0.75rem; color:var(--color-graphite-600); margin:0.35rem 0 0;}
 .gal-prize{display:flex; align-items:center; gap:0.85rem; margin-top:1.5rem; padding:1rem 1.15rem; border-radius:var(--radius-lg); background:var(--color-teal-50); border:0.0625rem solid var(--color-teal-100);}
 .gal-prize__icon{flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:var(--color-teal); color:var(--color-white); display:flex; align-items:center; justify-content:center;}
 .gal-prize__icon svg{width:1.3rem; height:1.3rem;}
 .gal-prize__amount{margin:0; font-size:1.0625rem; font-weight:800; color:var(--color-teal); line-height:1.2;}
 .gal-prize__note{margin:0.15rem 0 0; font-size:0.8125rem; color:var(--color-graphite-700); line-height:1.45;}
-.gal-consent{display:flex; align-items:flex-start; gap:0.55rem; font-size:0.8125rem; color:var(--color-graphite-700); line-height:1.4; margin-bottom:1rem;}
-.gal-consent input{flex-shrink:0; margin-top:0; width:1.25rem; height:1.25rem; accent-color:var(--color-teal);}
-.gal-ugc__ok{display:none; align-items:center; gap:0.6rem; background:var(--color-teal-50); border:0.0625rem solid var(--color-teal-100); color:var(--color-teal); border-radius:var(--radius); padding:0.85rem 1rem; font-size:0.875rem; font-weight:600; margin-top:0.5rem;}
-.gal-ugc__ok svg{width:1.2rem; height:1.2rem; flex-shrink:0;}
 .gal-steps{list-style:none; padding:0; margin:1.25rem 0 0; display:flex; flex-direction:column; gap:1rem;}
 .gal-steps li{display:flex; gap:0.85rem; align-items:flex-start;}
 .gal-steps__n{flex-shrink:0; width:1.75rem; height:1.75rem; border-radius:50%; background:var(--color-white); color:var(--color-teal); border:0.125rem solid var(--color-teal); display:flex; align-items:center; justify-content:center; font-size:0.8125rem; font-weight:700;}
@@ -4003,7 +4031,7 @@ h1,h2,h3,.display{text-wrap:balance;}
         <div class="gal-hero__copy">
           <p class="overline">Gewinnergalerie</p>
           <h1 class="display">Echt <span class="gal-hero__accent">verbaut</span><br>Zuhause bei unseren Kunden</h1>
-          <p class="gal-hero__lead">Von der Haustür bis zum Gartentor: echte Metzler-Installationen, fotografiert von unseren Kunden aus ganz Deutschland. Tipp auf ein Bild und entdecke jedes verbaute Produkt – zum direkten Nachkaufen.</p>
+          <p class="gal-hero__lead">Von der Haustür bis zum Gartentor: echte Metzler-Installationen, fotografiert von unseren Kunden aus ganz Deutschland. Tippen Sie auf ein Bild und entdecken Sie jedes verbaute Produkt – zum direkten Nachkaufen.</p>
           <div class="gal-hero__cta">
             <a href="#mitmachen" class="btn btn-primary">Eigenes Foto hochladen</a>
           </div>
@@ -4120,8 +4148,8 @@ h1,h2,h3,.display{text-wrap:balance;}
       <div class="gal-ugc__grid">
         <div>
           <p class="overline">Metzler Fotowettbewerb</p>
-          <h2>Zeig uns dein Metzler-Zuhause</h2>
-          <p class="body-lg" style="color:var(--color-graphite-700); max-width:34rem;">Die Teilnahme am monatlich stattfindenden Fotowettbewerb ist ganz einfach: Registrier dich mit deiner persönlichen Bestellnummer und lade anschließend deine schönsten Metzler-Produktbilder hoch.</p>
+          <h2>Zeigen Sie uns Ihr Metzler-Zuhause</h2>
+          <p class="body-lg" style="color:var(--color-graphite-700); max-width:34rem;">Die Teilnahme am monatlichen Fotowettbewerb ist einfach: Geben Sie Ihre Bestellnummer an und laden Sie Ihre schönsten Fotos mit Metzler-Produkten hoch.</p>
           <div class="gal-prize">
             <span class="gal-prize__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13"/><path d="M12 8S9.5 8 8.4 6.6 8.6 3.4 10 4s2 4 2 4zM12 8s2.5 0 3.6-1.4S15.4 3.4 14 4s-2 4-2 4z"/></svg></span>
             <div>
@@ -4130,39 +4158,63 @@ h1,h2,h3,.display{text-wrap:balance;}
             </div>
           </div>
           <ol class="gal-steps">
-            <li><span class="gal-steps__n">1</span><div><p class="gal-steps__t">Registrieren</p><p class="gal-steps__d">Mit deiner persönlichen Bestellnummer anmelden.</p></div></li>
-            <li><span class="gal-steps__n">2</span><div><p class="gal-steps__t">Bilder hochladen</p><p class="gal-steps__d">Deine schönsten Metzler-Produktbilder über das Formular einreichen.</p></div></li>
-            <li><span class="gal-steps__n">3</span><div><p class="gal-steps__t">Gewinnen</p><p class="gal-steps__d">Die Gewinner werden monatlich bekannt gegeben – viel Erfolg!</p></div></li>
+            <li><span class="gal-steps__n">1</span><div><p class="gal-steps__t">Registrieren</p><p class="gal-steps__d">Mit Ihrer Bestellnummer anmelden.</p></div></li>
+            <li><span class="gal-steps__n">2</span><div><p class="gal-steps__t">Bilder hochladen</p><p class="gal-steps__d">Ihre schönsten Fotos über das Formular einreichen.</p></div></li>
+            <li><span class="gal-steps__n">3</span><div><p class="gal-steps__t">Gewinnen</p><p class="gal-steps__d">Die Gewinner geben wir jeden Monat bekannt.</p></div></li>
           </ol>
         </div>
         <div class="gal-ugc__card">
-          <form id="ugcForm">
+          <form id="ugcForm" novalidate>
+            <!-- Kit FormElements: floating labels (placeholder=" " is required); the hint sits outside .field-wrapper so label and error stay on the input -->
             <div class="gal-field">
-              <label class="gal-label" for="ugcOrder">Ihre Bestellnummer <span class="gal-req">(erforderlich)</span></label>
-              <input id="ugcOrder" type="text" maxlength="30" placeholder="z. B. 100123456" required>
-              <p class="gal-hint"><span id="ugcOrderCount">0</span> von 30 max. Zeichenanzahl</p>
+              <div class="field-wrapper">
+                <input class="form-control" id="ugcOrder" type="text" maxlength="30" placeholder=" " required aria-describedby="ugcOrderHint">
+                <label for="ugcOrder">Ihre Bestellnummer</label>
+              </div>
+              <span class="field__hint" id="ugcOrderHint">z. B. 100123456 · <span id="ugcOrderCount">0</span> von 30 Zeichen</span>
             </div>
             <div class="gal-field gal-field--row">
-              <div><label class="gal-label" for="ugcFirst">Vorname</label><input id="ugcFirst" type="text" autocomplete="given-name"></div>
-              <div><label class="gal-label" for="ugcLast">Nachname</label><input id="ugcLast" type="text" autocomplete="family-name"></div>
+              <div class="field-wrapper">
+                <input class="form-control" id="ugcFirst" type="text" autocomplete="given-name" placeholder=" ">
+                <label for="ugcFirst">Vorname (optional)</label>
+              </div>
+              <div class="field-wrapper">
+                <input class="form-control" id="ugcLast" type="text" autocomplete="family-name" placeholder=" ">
+                <label for="ugcLast">Nachname (optional)</label>
+              </div>
             </div>
             <div class="gal-field">
-              <label class="gal-label" for="ugcMail">E-Mail <span class="gal-req">(erforderlich)</span></label>
-              <input id="ugcMail" type="email" autocomplete="email" required>
+              <div class="field-wrapper">
+                <input class="form-control" id="ugcMail" type="email" autocomplete="email" placeholder=" " required>
+                <label for="ugcMail">E-Mail-Adresse</label>
+              </div>
             </div>
+            <!-- Upload: not in the kit (no upload component) — built from kit parts: icon tile, .btn-primary.btn-sm, tokens -->
             <div class="gal-field">
-              <label class="gal-label">Ihre besten Bilder <span class="gal-req">(erforderlich)</span></label>
-              <div class="gal-drop" id="drop" role="button" tabindex="0" aria-label="Dateien auswählen">
+              <div class="gal-drop" id="drop" role="button" tabindex="0" aria-label="Fotos auswählen" aria-describedby="ugcFilesHint">
                 <span class="gal-drop__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg></span>
-                <p class="gal-drop__t">Ziehe Dateien hier her oder</p>
-                <span class="gal-drop__btn">Wähle Dateien aus</span>
+                <p class="gal-drop__t">Fotos hierher ziehen oder</p>
+                <span class="btn btn-primary btn-sm">Dateien auswählen</span>
                 <input id="ugcFiles" type="file" multiple accept=".jpg,.jpeg,.png,.tiff,.raw,.heic,image/*" hidden>
               </div>
-              <p class="gal-hint">Akzeptierte Dateitypen: jpg, tiff, png, raw, heic, jpeg · max. 100 MB · bis zu 10 Dateien.</p>
+              <span class="field__hint" id="ugcFilesHint">JPG, PNG, TIFF, HEIC oder RAW · max. 100 MB · bis zu 10 Dateien</span>
             </div>
-            <label class="gal-consent"><input type="checkbox" required><span>Ich habe die <a href="#" data-pf-ext="1" tabindex="-1">Teilnahmebedingungen</a> zum Fotowettbewerb und die <a href="#" data-pf-ext="1" tabindex="-1">Hinweise zum Datenschutz</a> zur Kenntnis genommen und erkläre mich einverstanden.</span></label>
-            <button type="submit" class="btn btn-primary btn-block" style="width:100%;">Am Fotowettbewerb teilnehmen</button>
-            <div class="gal-ugc__ok" id="ugcOk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Danke! Deine Einsendung ist eingegangen – viel Erfolg beim Fotowettbewerb!</div>
+            <!-- Kit checkbox (25px, teal when checked) on a real, visually hidden input so keyboard and screen readers work -->
+            <div class="gal-field">
+              <label class="checkbox-wrapper gal-consent" id="ugcConsentWrap">
+                <input class="checkbox-input" id="ugcConsent" type="checkbox" required>
+                <span class="checkbox" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span>Ich habe die <a href="#" data-pf-ext="1" tabindex="-1">Teilnahmebedingungen</a> zum Fotowettbewerb und die <a href="#" data-pf-ext="1" tabindex="-1">Hinweise zum Datenschutz</a> zur Kenntnis genommen und erkläre mich einverstanden.</span>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Am Fotowettbewerb teilnehmen</button>
+            <div class="alert alert-success alert--flat" id="ugcOk" role="status" hidden>
+              <span class="alert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
+              <div class="alert__body">
+                <p class="alert__title">Vielen Dank für Ihre Teilnahme</p>
+                <p class="alert__text">Ihre Einsendung ist eingegangen. Die Gewinner geben wir jeden Monat bekannt.</p>
+              </div>
+            </div>
           </form>
         </div>
       </div>
@@ -4959,25 +5011,55 @@ h1,h2,h3,.display{text-wrap:balance;}
     });
   })();
 
-  /* ---- Fotowettbewerb form ---- */
+  /* ---- Fotowettbewerb form: kit inline errors (no browser bubbles) ---- */
   var form = document.getElementById('ugcForm');
   var order = document.getElementById('ugcOrder');
   var orderCount = document.getElementById('ugcOrderCount');
+  var mail = document.getElementById('ugcMail');
+  var consent = document.getElementById('ugcConsent');
+  var consentWrap = document.getElementById('ugcConsentWrap');
   if(order && orderCount){ order.addEventListener('input', function(){ orderCount.textContent = order.value.length; }); }
   var drop = document.getElementById('drop');
   var files = document.getElementById('ugcFiles');
   var dropT = drop && drop.querySelector('.gal-drop__t');
+  function filesLabel(n){ return n === 1 ? '1 Datei ausgewählt' : n + ' Dateien ausgewählt'; }
+  // field errors: .field--error on the wrapper, .error on the input, .field__error on the border (kit)
+  function setFieldError(input, msg){
+    var w = input.closest('.field-wrapper'); if(!w) return;
+    var e = w.querySelector('.field__error');
+    w.classList.toggle('field--error', !!msg); input.classList.toggle('error', !!msg);
+    if(msg){ input.setAttribute('aria-invalid', 'true'); if(!e){ e = document.createElement('span'); e.className = 'field__error'; w.appendChild(e); } e.textContent = msg; }
+    else { input.removeAttribute('aria-invalid'); if(e) e.remove(); }
+  }
+  // group errors (upload, consent): red border + message under the control
+  function setGroupError(el, field, msg){
+    var e = field.querySelector('.gal-error');
+    el.classList.toggle('is-error', !!msg);
+    if(msg){ if(!e){ e = document.createElement('span'); e.className = 'gal-error'; e.setAttribute('role', 'alert'); field.appendChild(e); } e.textContent = msg; }
+    else if(e){ e.remove(); }
+  }
+  function hasFiles(){ return !!(files && files.files && files.files.length); }
   if(drop && files){
     drop.addEventListener('click', function(){ files.click(); });
     drop.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); files.click(); } });
-    files.addEventListener('change', function(){ if(files.files.length && dropT){ dropT.textContent = files.files.length + ' Datei(en) ausgewählt'; } });
+    files.addEventListener('change', function(){ if(hasFiles()){ if(dropT) dropT.textContent = filesLabel(files.files.length); setGroupError(drop, drop.parentNode, ''); } });
     ['dragover','dragenter'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('is-drag'); }); });
     ['dragleave','dragend'].forEach(function(ev){ drop.addEventListener(ev, function(e){ drop.classList.remove('is-drag'); }); });
-    drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('is-drag'); var f=e.dataTransfer&&e.dataTransfer.files; if(f&&f.length){ try{ files.files=f; }catch(err){} if(dropT) dropT.textContent = f.length + ' Datei(en) ausgewählt'; } });
+    drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('is-drag'); var f=e.dataTransfer&&e.dataTransfer.files; if(f&&f.length){ try{ files.files=f; }catch(err){} if(dropT) dropT.textContent = filesLabel(f.length); setGroupError(drop, drop.parentNode, ''); } });
   }
+  [order, mail].forEach(function(inp){ if(inp) inp.addEventListener('input', function(){ setFieldError(inp, ''); }); });
+  if(consent) consent.addEventListener('change', function(){ if(consent.checked) setGroupError(consentWrap, consentWrap.parentNode, ''); });
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('ugcOk').style.display='flex';
+    var first = null;
+    function fail(el){ if(!first) first = el; }
+    if(!order.value.trim()){ setFieldError(order, 'Bitte Bestellnummer eingeben'); fail(order); }
+    if(!mail.value.trim()){ setFieldError(mail, 'Bitte E-Mail-Adresse eingeben'); fail(mail); }
+    else if(!mail.checkValidity()){ setFieldError(mail, 'Bitte gültige E-Mail eingeben'); fail(mail); }
+    if(drop && !hasFiles()){ setGroupError(drop, drop.parentNode, 'Bitte mindestens ein Foto auswählen'); fail(drop); }
+    if(!consent.checked){ setGroupError(consentWrap, consentWrap.parentNode, 'Bitte bestätigen Sie die Teilnahmebedingungen'); fail(consent); }
+    if(first){ first.focus(); return; }
+    document.getElementById('ugcOk').hidden = false;
     form.querySelector('button[type=submit]').style.display='none';
   });
 })();
