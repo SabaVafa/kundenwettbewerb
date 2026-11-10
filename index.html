@@ -3690,16 +3690,23 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-ugc__grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:start;}
 .gal-ugc__grid > *{min-width:0;} /* allow columns to shrink below content min on narrow screens */
 .gal-ugc__card{background:var(--color-white); border:0.0625rem solid var(--color-graphite-200); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:1.75rem; container-type:inline-size;}
-/* ===== Metzler UI Kit 1.64 · FormElements (copied as shipped in bundle.css) ===== */
-.form-control { display: block; width: 100%; padding: 0.7rem 0.9375rem; font-family: var(--font-family); font-size: 1rem; color: var(--color-black); background: var(--color-white); border: 0.0625rem solid var(--color-graphite-300); border-radius: var(--radius); box-sizing: border-box; outline: none; transition: border-color 0.15s; }
+/* ===== Eingabefelder · Developer Handoff 10.11.2026 (Metzler UI Kit 1.64, Form Elements › Textfield) =====
+   Label and error text are aligned to the field (fixed rem), not to the wrapper, so a hint inside the wrapper does not move them. */
+.form-control { display: block; width: 100%; padding: 0.7rem 0.9375rem; font-family: var(--font-family); font-size: 1rem; line-height: 1.4; color: var(--color-black); background: var(--color-white); border: 0.0625rem solid var(--color-graphite-300); border-radius: var(--radius); box-sizing: border-box; outline: none; transition: border-color 0.15s; }
 .form-control:focus { border-color: var(--color-teal); }
-.form-control.error { border-color: #C90000; }
+.form-control-lg { padding: 0.8rem 1rem; font-size: 1.125rem; }
+.form-control-sm { padding: 0.35rem 0.75rem; font-size: 0.875rem; }
 .field-wrapper { position: relative; }
-.field-wrapper label { position: absolute; left: 0.9375rem; top: 50%; transform: translateY(-50%); font-family: var(--font-family); font-size: 1rem; color: var(--color-graphite-500); pointer-events: none; transition: all 0.15s ease; background: transparent; padding: 0; line-height: 1.4; white-space: nowrap; z-index: 1; }
+.field-wrapper label { position: absolute; left: 0.9375rem; top: 1.4625rem; transform: translateY(-50%); font-family: var(--font-family); font-size: 1rem; line-height: 1.4; color: var(--color-graphite-500); white-space: nowrap; pointer-events: none; background: transparent; padding: 0; z-index: 1; transition: all 0.15s ease; }
 .field-wrapper .form-control:focus + label,
-.field-wrapper .form-control:not(:placeholder-shown) + label { top: -0.5625rem; left: 0.6875rem; transform: none; font-size: 0.75rem; color: var(--color-black); background: var(--color-white); padding: 0 0.3125rem; }
-.field__error { position: absolute; bottom: -0.4375rem; right: 0.6875rem; background: var(--color-white); padding: 0 0.3125rem; font-family: var(--font-family); font-size: 0.75rem; color: #C90000; white-space: nowrap; line-height: 0.875rem; }
-.field__hint { display: block; margin-top: 0.3125rem; font-family: var(--font-family); font-size: 0.8125rem; color: var(--color-graphite-600); line-height: 1.45; }
+.field-wrapper .form-control:not(:placeholder-shown) + label,
+.field--active label,
+.field--done label { top: -0.5625rem; left: 0.6875rem; transform: none; font-size: 0.75rem; color: var(--color-black); background: var(--color-white); padding: 0 0.3125rem; }
+.field--active .form-control { border-color: var(--color-teal); }
+.field--error .form-control,
+.form-control.error { border-color: var(--color-red); }
+.field__error { position: absolute; top: 2.4875rem; right: 0.6875rem; padding: 0 0.3125rem; background: var(--color-white); font-family: var(--font-family); font-size: 0.75rem; line-height: 0.875rem; color: var(--color-red); white-space: nowrap; }
+.field__hint { display: block; margin-top: 0.3125rem; font-family: var(--font-family); font-size: 0.8125rem; line-height: 1.45; color: var(--color-graphite-600); }
 /* Kit checkbox */
 .checkbox-wrapper { display: inline-flex; align-items: center; gap: 0.5625rem; cursor: pointer; font-family: var(--font-family); font-size: 1rem; color: var(--color-black); user-select: none; }
 .checkbox { width: 1.5625rem; height: 1.5625rem; border-radius: var(--radius); border: 0.0625rem solid var(--color-graphite-300); background: var(--color-white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box; transition: background 0.12s; }
@@ -3721,15 +3728,14 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-field { margin-bottom: 1.5rem; }                     /* room for the floating label of the next field */
 .gal-field--row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
 @container (min-width: 28rem) { .gal-field--row { grid-template-columns: 1fr 1fr; gap: 1rem; } }  /* names side by side only when both labels fit */
-.field-wrapper.field--error label { color: #C90000; }
 .gal-consent { display: flex; align-items: flex-start; font-size: 0.875rem; line-height: 1.45; color: var(--color-graphite-700); }
 .checkbox-input { position: absolute; width: 0.0625rem; height: 0.0625rem; margin: 0; opacity: 0; pointer-events: none; }
 .checkbox svg { color: var(--color-white); opacity: 0; transition: opacity 0.12s; }
 .checkbox-input:checked + .checkbox { background: var(--color-teal); border-color: var(--color-teal); }  /* = kit .checked-filter */
 .checkbox-input:checked + .checkbox svg { opacity: 1; }
 .checkbox-input:focus-visible + .checkbox { outline: 0.125rem solid var(--color-teal); outline-offset: 0.125rem; }
-.gal-consent.is-error .checkbox, .gal-drop.is-error { border-color: #C90000; }
-.gal-error { display: block; margin-top: 0.3125rem; font-family: var(--font-family); font-size: 0.75rem; line-height: 1.2; color: #C90000; }
+.gal-consent.is-error .checkbox, .gal-drop.is-error { border-color: var(--color-red); }
+.gal-error { display: block; margin-top: 0.3125rem; font-family: var(--font-family); font-size: 0.75rem; line-height: 1.2; color: var(--color-red); }
 .gal-ugc__card .alert { margin-top: 1rem; }
 .gal-drop{border:0.125rem dashed var(--color-graphite-400); border-radius:var(--radius-lg); background:var(--color-paper); padding:1.5rem; text-align:center; cursor:pointer; transition:border-color .14s, background .14s;}
 .gal-drop:hover{border-color:var(--color-teal); background:var(--color-teal-50);}
@@ -4165,13 +4171,13 @@ h1,h2,h3,.display{text-wrap:balance;}
         </div>
         <div class="gal-ugc__card">
           <form id="ugcForm" novalidate>
-            <!-- Kit FormElements: floating labels (placeholder=" " is required); the hint sits outside .field-wrapper so label and error stay on the input -->
+            <!-- Eingabefelder (handoff 10.11.2026): floating labels, placeholder=" " is required; hint and error text sit inside .field-wrapper -->
             <div class="gal-field">
               <div class="field-wrapper">
                 <input class="form-control" id="ugcOrder" type="text" maxlength="30" placeholder=" " required aria-describedby="ugcOrderHint">
                 <label for="ugcOrder">Ihre Bestellnummer</label>
+                <span class="field__hint" id="ugcOrderHint">z. B. 100123456 · <span id="ugcOrderCount">0</span> von 30 Zeichen</span>
               </div>
-              <span class="field__hint" id="ugcOrderHint">z. B. 100123456 · <span id="ugcOrderCount">0</span> von 30 Zeichen</span>
             </div>
             <div class="gal-field gal-field--row">
               <div class="field-wrapper">
@@ -5024,12 +5030,22 @@ h1,h2,h3,.display{text-wrap:balance;}
   var dropT = drop && drop.querySelector('.gal-drop__t');
   function filesLabel(n){ return n === 1 ? '1 Datei ausgewählt' : n + ' Dateien ausgewählt'; }
   // field errors: .field--error on the wrapper, .error on the input, .field__error on the border (kit)
+  // handoff: aria-invalid + aria-describedby pointing at the error text (kept next to any hint id)
   function setFieldError(input, msg){
     var w = input.closest('.field-wrapper'); if(!w) return;
-    var e = w.querySelector('.field__error');
+    var e = w.querySelector('.field__error'), errId = input.id + 'Err';
+    if(input.dataset.describedby === undefined) input.dataset.describedby = input.getAttribute('aria-describedby') || '';
     w.classList.toggle('field--error', !!msg); input.classList.toggle('error', !!msg);
-    if(msg){ input.setAttribute('aria-invalid', 'true'); if(!e){ e = document.createElement('span'); e.className = 'field__error'; w.appendChild(e); } e.textContent = msg; }
-    else { input.removeAttribute('aria-invalid'); if(e) e.remove(); }
+    if(msg){
+      if(!e){ e = document.createElement('span'); e.className = 'field__error'; e.id = errId; w.appendChild(e); }
+      e.textContent = msg;
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', (input.dataset.describedby + ' ' + errId).trim());
+    } else {
+      if(e) e.remove();
+      input.removeAttribute('aria-invalid');
+      if(input.dataset.describedby) input.setAttribute('aria-describedby', input.dataset.describedby); else input.removeAttribute('aria-describedby');
+    }
   }
   // group errors (upload, consent): red border + message under the control
   function setGroupError(el, field, msg){
