@@ -3821,6 +3821,10 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
   .gal-winner__badge svg{width:0.85rem; height:0.85rem;}
   /* full-width band: bleed past the container gutter, keep the content on the page gutter */
   .gal-winner__grid{margin-inline:calc(-1 * clamp(var(--sp-6), 4vw, 56px)); padding:2.5rem clamp(var(--sp-6), 4vw, 56px); border-radius:0;}
+  /* the band butts against the trust strip (its own 2rem padding is the space above; no divider needed
+     against the dark edge) and keeps the same 2rem to the filter chips below (1rem here + the bar's 1rem) */
+  .section.gal-winner{padding-top:0; padding-bottom:1rem;}
+  .gal-trust{border-bottom:0;}
   .gal-winner__credit{padding:2.25rem 0.8rem 0.7rem; font-size:0.8125rem;}
   .gal-winner__counter{right:0.7rem; bottom:0.7rem;}
   /* full-width stacked CTAs on mobile */
