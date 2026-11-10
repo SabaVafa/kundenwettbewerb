@@ -3535,10 +3535,10 @@ p{margin:0 0 1rem;}
 /* ============ FILTER TOOLBAR ============ */
 .gal-toolbar{position:sticky; top:var(--gal-sticky-top,0); z-index:40; background:var(--color-white); border-bottom:0.0625rem solid var(--color-graphite-200); transition:box-shadow .18s ease;}
 .gal-toolbar.is-stuck{box-shadow:0 0.25rem 0.75rem rgba(0,0,0,0.07);}
-.gal-toolbar__inner{display:flex; align-items:center; justify-content:space-between; gap:1rem clamp(1.5rem,3vw,2.5rem); padding:1.35rem 0; flex-wrap:nowrap;}
+/* vertical padding = the About-Us mid nav (.msty__chrome: padding-block clamp(16px,1.5vw,24px)) - 1rem on phones */
+.gal-toolbar__inner{display:flex; align-items:center; justify-content:space-between; gap:1rem clamp(1.5rem,3vw,2.5rem); padding:clamp(1rem,1.5vw,1.5rem) 0; flex-wrap:nowrap;}
 /* left brand mark — mirrors the About-Us mid nav (msty) chrome: small eyebrow + large title */
 .gal-toolbar__brand{display:flex; align-items:baseline; gap:0.875rem; line-height:1; flex-shrink:0;}
-.gal-toolbar__eyebrow{font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-graphite-600); line-height:1.4;}
 .gal-toolbar__title{font-size:1.875rem; font-weight:700; letter-spacing:-0.015em; color:var(--color-digital-black);}
 /* smaller title on standard/small desktops (24px); 30px only on large monitors (>1920px) */
 @media(max-width:120rem){ .gal-toolbar__title{font-size:1.5rem;} }
@@ -3605,12 +3605,11 @@ p{margin:0 0 1rem;}
 .gal-tile__zoom{position:absolute; top:0.6rem; right:0.6rem; z-index:3; width:1.9rem; height:1.9rem; border-radius:50%; background:rgba(255,255,255,0.55); -webkit-backdrop-filter:blur(16px) saturate(180%); backdrop-filter:blur(16px) saturate(180%); border:1px solid rgba(255,255,255,0.55); color:var(--color-digital-black); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .18s;}
 .gal-tile:hover .gal-tile__zoom{opacity:1;}
 .gal-tile__zoom svg{width:1rem; height:1rem; color:var(--color-digital-black);}
-/* smaller flag + zoom on the compact 2-column phone tiles */
+/* smaller flag on the compact 2-column phone tiles; the zoom badge goes so the full month fits (the whole tile opens the photo) */
 @media(max-width:48rem){
   .gal-tile__flag{top:0.5rem; left:0.5rem; padding:0.2rem 0.45rem; font-size:0.6875rem; gap:0.25rem; letter-spacing:0.02em;}
   .gal-tile__flag svg{width:0.72rem; height:0.72rem;}
-  .gal-tile__zoom{top:0.45rem; right:0.45rem; width:1.6rem; height:1.6rem;}
-  .gal-tile__zoom svg{width:0.85rem; height:0.85rem;}
+  .gal-tile__zoom{display:none;}
 }
 .gal-tile__overlay{position:absolute; left:0; right:0; bottom:0; z-index:2; padding:2.5rem 0.85rem 0.85rem; background:linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0) 100%); transform:translateY(0.5rem); opacity:0; transition:opacity .2s, transform .2s;}
 .gal-tile:hover .gal-tile__overlay, .gal-tile:focus-within .gal-tile__overlay{opacity:1; transform:translateY(0);}
@@ -3661,7 +3660,8 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-lb__body{grid-column:2; grid-row:2; min-width:0; min-height:0; display:flex; flex-direction:column; overflow-y:auto; padding:clamp(1.35rem,2.4vw,1.9rem);}
 .gal-lb__flag{display:inline-flex; align-items:center; gap:0.35rem; font-size:0.6875rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-green); margin-bottom:0.75rem;}
 .gal-lb__flag svg{width:0.9rem; height:0.9rem;}
-.gal-lb__title{font-size:1.0625rem; font-weight:700; line-height:1.35; letter-spacing:-0.01em; color:var(--color-digital-black); margin:0 0 1.25rem;}
+.gal-lb__by{font-size:1rem; line-height:1.4; color:var(--color-graphite-600); margin:0 0 1.25rem;}
+.gal-lb__by strong{font-weight:700; color:var(--color-digital-black);}
 .gal-lb__prods-label{font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-graphite-600); margin:0 0 0.75rem;}
 .gal-lb__prod{display:flex; align-items:center; justify-content:space-between; gap:0.75rem; padding:0.75rem 0; border-top:0.0625rem solid var(--color-graphite-200);}
 .gal-lb__prod:last-of-type{border-bottom:0.0625rem solid var(--color-graphite-200);}
@@ -3800,27 +3800,22 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 /* right-side thumbnail rail: fills the remaining width to the gutter and doubles as carousel nav */
 .gal-winner__rail{display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; align-content:center;}
 .gal-winner__railwrap{min-width:0;}
-.gal-winner__railnav{display:none;}
-.gal-winner__thumb{position:relative; aspect-ratio:1/1; margin:0; padding:0; border:0; border-radius:var(--radius); overflow:hidden; cursor:pointer; background:var(--color-graphite-800); opacity:0.5; outline:0.125rem solid transparent; outline-offset:0.125rem; transition:opacity .16s ease, outline-color .16s ease, transform .12s ease;}
+.gal-winner__thumb{position:relative; aspect-ratio:1/1; margin:0; padding:0; border:0; border-radius:var(--radius); overflow:hidden; cursor:pointer; background:var(--color-graphite-800); opacity:0.55; outline:0.125rem solid transparent; outline-offset:0.125rem; transition:opacity .16s ease, outline-color .16s ease;}
 .gal-winner__thumb img{width:100%; height:100%; object-fit:cover; display:block;}
 .gal-winner__thumb:hover{opacity:0.85;}
-.gal-winner__thumb:active{transform:translateY(0.0625rem);}
 .gal-winner__thumb.is-active{opacity:1; outline-color:var(--color-star);}
-.gal-winner__thumb:focus-visible{outline-color:var(--color-white);}
+.gal-winner__thumb:focus-visible{outline-color:var(--color-mint);}
 /* stack the thumbnail rail under the card until the 3-column layout leaves room for ~66px thumbnails (below ~1340px they shrank to 38px) */
 @media(max-width:83.75rem){
   .gal-winner__grid{grid-template-columns:21rem 1fr;}
-  /* rail becomes a full-width horizontal scroll strip flanked by chevrons */
-  .gal-winner__railwrap{grid-column:1 / -1; display:flex; align-items:center; gap:0.6rem; margin-top:0.5rem;}
-  .gal-winner__rail{flex:1 1 auto; min-width:0; display:flex; gap:0.85rem; padding:0.35rem 0.125rem; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
+  /* rail becomes one swipeable row, as the Startseite handoff (.gal__thumbs); the photo arrows and thumbs drive it */
+  .gal-winner__railwrap{grid-column:1 / -1; margin-top:0.5rem;}
+  .gal-winner__rail{grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:3.75rem; gap:0.5rem; padding:0.25rem; overflow-x:auto; scrollbar-width:none; scroll-snap-type:x proximity;}
   .gal-winner__rail::-webkit-scrollbar{display:none;}
-  .gal-winner__thumb{flex:0 0 4.5rem;}
-  .gal-winner__railnav{display:grid; place-items:center; flex:0 0 auto; width:2.25rem; height:2.25rem; cursor:pointer; color:var(--color-white); background:rgba(255,255,255,0.12); border:0.0625rem solid rgba(255,255,255,0.3); border-radius:var(--radius); transition:background .15s ease;}
-  .gal-winner__railnav:hover{background:rgba(255,255,255,0.22);}
-  .gal-winner__railnav:active{background:rgba(255,255,255,0.3);}
-  .gal-winner__railnav svg{width:1.05rem; height:1.05rem;}
+  .gal-winner__thumb{scroll-snap-align:start;}
 }
-@media(max-width:60rem){ .gal-winner__grid{grid-template-columns:1fr; gap:2rem;} .gal-winner__media{order:-1;} }
+/* one column: photo, then its thumbnails right under it, then the text */
+@media(max-width:60rem){ .gal-winner__grid{grid-template-columns:1fr; gap:2rem;} .gal-winner__media{order:-1;} .gal-winner__railwrap{order:-1; margin-top:-0.5rem;} }
 @media(max-width:48rem){
   .gal-winner__badge{top:0.65rem; left:0.65rem; padding:0.3rem 0.6rem; gap:0.3rem; font-size:0.6875rem;}
   .gal-winner__badge svg{width:0.85rem; height:0.85rem;}
@@ -4109,9 +4104,7 @@ h1,h2,h3,.display{text-wrap:balance;}
           </div>
         </div>
         <div class="gal-winner__railwrap">
-          <button class="gal-winner__railnav" data-rail-nav="prev" type="button" aria-label="Thumbnails zurück"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
           <div class="gal-winner__rail" data-winner-thumbs role="group" aria-label="Weitere Gewinnerfotos auswählen"><!-- thumbnails injected by JS --></div>
-          <button class="gal-winner__railnav" data-rail-nav="next" type="button" aria-label="Thumbnails weiter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
       </div>
     </div>
@@ -4125,7 +4118,6 @@ h1,h2,h3,.display{text-wrap:balance;}
     <div class="container">
       <div class="gal-toolbar__inner">
         <div class="gal-toolbar__brand">
-          <span class="gal-toolbar__eyebrow">Filter</span>
           <span class="gal-toolbar__title">Gewinnergalerie</span>
         </div>
         <div class="gal-filters" id="filters" role="group" aria-label="Galerie nach Produktkategorie filtern">
@@ -4360,8 +4352,8 @@ h1,h2,h3,.display{text-wrap:balance;}
       </div>
     </div>
     <div class="gal-lb__body">
-      <span class="gal-lb__flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>Gewinnerfoto</span>
-      <h4 class="gal-lb__title" id="lbTitle"></h4>
+      <span class="gal-lb__flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg><span id="lbFlagText">Gewinnerfoto</span></span>
+      <p class="gal-lb__by" id="lbByLine">Eingereicht von <strong id="lbBy"></strong></p>
       <p class="gal-lb__prods-label">Im Bild verbaut</p>
       <div id="lbProds"></div>
     </div>
@@ -4545,53 +4537,53 @@ h1,h2,h3,.display{text-wrap:balance;}
   };
   function p(name,cat,href){return {name:name, cat:cat, href:href};}
   var GALLERY = [
-    {id:'fw36', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw14', cats:['hn'], cap:'Hausnummer', prods:[p('Hausnummer','hn')]},
-    {id:'fw35', cats:['sp'], cap:'Video-Türsprechanlage', prods:[p('Video-Türsprechanlage','sp')]},
-    {id:'fw13', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw20', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw44', cats:['bk','hn'], cap:'Briefkasten mit Edelstahl-Schriftzug für Straße & Hausnummer', prods:[p('Briefkasten','bk'),p('Edelstahl-Schriftzug','hn')]},
-    {id:'fw17', cats:['bk','tk'], cap:'Briefkasten mit Design-Funkklingel', prods:[p('Briefkasten','bk'),p('Design-Funkklingel','tk')]},
-    {id:'fw48', cats:['pb','bk'], cap:'Briefkasten & Paketbox mit Briefeinwurf', prods:[p('Paketbox mit Briefeinwurf','pb')]},
-    {id:'fw40', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw30', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw01', cats:['bk','tk'], cap:'Standbriefkasten mit Aufputz-Klingel', prods:[p('Standbriefkasten','bk'),p('Aufputz-Klingel','tk')]},
-    {id:'fw28', cats:['sp'], cap:'Video-Türsprechanlage', prods:[p('Video-Türsprechanlage','sp')]},
-    {id:'fw26', cats:['bk'], cap:'Standbriefkasten', prods:[p('Standbriefkasten','bk')]},
-    {id:'fw19', cats:['hn'], cap:'Schriftzug mit Straße & Hausnummer', prods:[p('Schriftzug mit Hausnummer','hn')]},
-    {id:'fw43', cats:['bk','hn'], cap:'Briefkasten mit Hausnummernschild', prods:[p('Briefkasten','bk'),p('Hausnummernschild','hn')]},
-    {id:'fw29', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw41', cats:['tk'], cap:'Türklingel', prods:[p('Türklingel','tk')]},
-    {id:'fw18', cats:['bk','tk'], cap:'Briefkasten mit Türklingel', prods:[p('Briefkasten','bk'),p('Türklingel','tk')]},
-    {id:'fw33', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw47', cats:['sp','bk'], cap:'Video-Türsprechanlage mit Briefkasten und Zeitungsfach', prods:[p('Video-Türsprechanlage','sp'),p('Briefkasten mit Zeitungsfach','bk')]},
-    {id:'fw21', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw23', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw46', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw22', cats:['hn'], cap:'Hausnummernschilder', prods:[p('Hausnummernschilder','hn')]},
-    {id:'fw07', cats:['sp'], cap:'VDM10 Video-Türsprechanlage', prods:[p('VDM10 Video-Türsprechanlage','sp')]},
-    {id:'fw03', cats:['hn'], cap:'Edelstahl-Schriftzug mit Straße & Hausnummer', prods:[p('Edelstahl-Schriftzug','hn')]},
-    {id:'fw11', cats:['bk','sp'], cap:'Briefkasten mit Video-Türsprechanlage', prods:[p('Briefkasten','bk'),p('Video-Türsprechanlage','sp')]},
-    {id:'fw34', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw37', cats:['bk','hn'], cap:'Briefkasten mit Hausnummernschildern', prods:[p('Briefkasten','bk'),p('Hausnummernschilder','hn')]},
-    {id:'fw38', cats:['bk'], cap:'Standbriefkasten', prods:[p('Standbriefkasten','bk')]},
-    {id:'fw39', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw45', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw42', cats:['tk'], cap:'Türklingel', prods:[p('Türklingel','tk')]},
-    {id:'fw10', cats:['hn','sp'], cap:'Hausnummernschilder mit Video-Türsprechanlage', prods:[p('Hausnummernschilder','hn'),p('Video-Türsprechanlage','sp')]},
-    {id:'fw06', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw25', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw16', cats:['tk'], cap:'Türklingeln', prods:[p('Türklingel','tk')]},
-    {id:'fw32', cats:['bk'], cap:'Briefkasten', prods:[p('Briefkasten','bk')]},
-    {id:'fw27', cats:['bk','tk'], cap:'Briefkasten mit Funkklingel', prods:[p('Briefkasten','bk'),p('Funkklingel','tk')]},
-    {id:'fw15', cats:['sp'], cap:'Video-Türsprechanlage', prods:[p('Video-Türsprechanlage','sp')]},
-    {id:'fw31', cats:['sp'], cap:'Video-Türsprechanlage', prods:[p('Video-Türsprechanlage','sp')]},
-    {id:'fw04', cats:['hn'], cap:'Hausnummernschild', prods:[p('Hausnummernschild','hn')]},
-    {id:'fw08', cats:['bk','tk'], cap:'Design-Briefkasten mit Funkklingel', prods:[p('Design-Briefkasten','bk'),p('Funkklingel','tk')]},
-    {id:'fw09', cats:['bk','tk','hn'], cap:'Briefkasten mit Funkklingel und Hausnummernschild', prods:[p('Briefkasten','bk'),p('Funkklingel','tk'),p('Hausnummernschild','hn')]},
-    {id:'fw05', cats:['hn'], cap:'Modernes Hausnummernschild', prods:[p('Hausnummernschild','hn')]},
-    {id:'fw12', cats:['hn'], cap:'Quadratisches Hausnummernschild', prods:[p('Hausnummernschild','hn')]},
-    {id:'fw02', cats:['sp'], cap:'VDM10 Video-Türsprechanlage', prods:[p('VDM10 Video-Türsprechanlage','sp')]}
+    {id:'fw36', cats:['bk'], cap:'Briefkasten', by:'H. Seidel', prods:[p('Briefkasten','bk')], date:'September 2022'},
+    {id:'fw14', cats:['hn'], cap:'Hausnummer', by:'M. Huber', prods:[p('Hausnummer','hn')]},
+    {id:'fw35', cats:['sp'], cap:'Video-Türsprechanlage', by:'O. Brinkmann', prods:[p('Video-Türsprechanlage','sp')], date:'September 2022'},
+    {id:'fw13', cats:['bk'], cap:'Briefkasten', by:'W. Frank', prods:[p('Briefkasten','bk')]},
+    {id:'fw20', cats:['bk'], cap:'Briefkasten', by:'H. Albrecht', prods:[p('Briefkasten','bk')]},
+    {id:'fw44', cats:['bk','hn'], cap:'Briefkasten mit Edelstahl-Schriftzug für Straße & Hausnummer', by:'W. Baumann', prods:[p('Briefkasten','bk'),p('Edelstahl-Schriftzug','hn')], date:'Dezember 2022'},
+    {id:'fw17', cats:['bk','tk'], cap:'Briefkasten mit Design-Funkklingel', by:'T. Jung', prods:[p('Briefkasten','bk'),p('Design-Funkklingel','tk')], date:'August 2021'},
+    {id:'fw48', cats:['pb','bk'], cap:'Briefkasten & Paketbox mit Briefeinwurf', by:'U. Kaufmann', prods:[p('Paketbox mit Briefeinwurf','pb')], date:'Mai 2023'},
+    {id:'fw40', cats:['bk'], cap:'Briefkasten', by:'E. Kraus', prods:[p('Briefkasten','bk')], date:'November 2022'},
+    {id:'fw30', cats:['bk'], cap:'Briefkasten', by:'G. Engel', prods:[p('Briefkasten','bk')], date:'August 2022'},
+    {id:'fw01', cats:['bk','tk'], cap:'Standbriefkasten mit Aufputz-Klingel', by:'A. Lehmann', prods:[p('Standbriefkasten','bk'),p('Aufputz-Klingel','tk')], date:'Mai 2022'},
+    {id:'fw28', cats:['sp'], cap:'Video-Türsprechanlage', by:'N. Franke', prods:[p('Video-Türsprechanlage','sp')], date:'Juli 2022'},
+    {id:'fw26', cats:['bk'], cap:'Standbriefkasten', by:'D. Simon', prods:[p('Standbriefkasten','bk')], date:'Juli 2022'},
+    {id:'fw19', cats:['hn'], cap:'Schriftzug mit Straße & Hausnummer', by:'K. Otto', prods:[p('Schriftzug mit Hausnummer','hn')]},
+    {id:'fw43', cats:['bk','hn'], cap:'Briefkasten mit Hausnummernschild', by:'I. Lorenz', prods:[p('Briefkasten','bk'),p('Hausnummernschild','hn')], date:'November 2022'},
+    {id:'fw29', cats:['bk'], cap:'Briefkasten', by:'B. Schreiber', prods:[p('Briefkasten','bk')], date:'Juli 2022'},
+    {id:'fw41', cats:['tk'], cap:'Türklingel', by:'T. Heinrich', prods:[p('Türklingel','tk')], date:'November 2022'},
+    {id:'fw18', cats:['bk','tk'], cap:'Briefkasten mit Türklingel', by:'S. Brandt', prods:[p('Briefkasten','bk'),p('Türklingel','tk')]},
+    {id:'fw33', cats:['bk'], cap:'Briefkasten', by:'Y. Kühn', prods:[p('Briefkasten','bk')], date:'September 2022'},
+    {id:'fw47', cats:['sp','bk'], cap:'Video-Türsprechanlage mit Briefkasten und Zeitungsfach', by:'J. Vogt', prods:[p('Video-Türsprechanlage','sp'),p('Briefkasten mit Zeitungsfach','bk')], date:'Dezember 2022'},
+    {id:'fw21', cats:['bk'], cap:'Briefkasten', by:'E. Ludwig', prods:[p('Briefkasten','bk')], date:'Mai 2022'},
+    {id:'fw23', cats:['bk'], cap:'Briefkasten', by:'L. Roth', prods:[p('Briefkasten','bk')], date:'Mai 2022'},
+    {id:'fw46', cats:['bk'], cap:'Briefkasten', by:'F. Scholz', prods:[p('Briefkasten','bk')], date:'Dezember 2022'},
+    {id:'fw22', cats:['hn'], cap:'Hausnummernschilder', by:'F. Winter', prods:[p('Hausnummernschilder','hn')], date:'Mai 2022'},
+    {id:'fw07', cats:['sp'], cap:'VDM10 Video-Türsprechanlage', by:'G. Lange', prods:[p('VDM10 Video-Türsprechanlage','sp')], date:'Januar 2022'},
+    {id:'fw03', cats:['hn'], cap:'Edelstahl-Schriftzug mit Straße & Hausnummer', by:'K. Zimmermann', prods:[p('Edelstahl-Schriftzug','hn')], date:'Februar 2022'},
+    {id:'fw11', cats:['bk','sp'], cap:'Briefkasten mit Video-Türsprechanlage', by:'U. Schulz', prods:[p('Briefkasten','bk'),p('Video-Türsprechanlage','sp')]},
+    {id:'fw34', cats:['bk'], cap:'Briefkasten', by:'M. Pohl', prods:[p('Briefkasten','bk')], date:'September 2022'},
+    {id:'fw37', cats:['bk','hn'], cap:'Briefkasten mit Hausnummernschildern', by:'S. Graf', prods:[p('Briefkasten','bk'),p('Hausnummernschilder','hn')], date:'Oktober 2022'},
+    {id:'fw38', cats:['bk'], cap:'Standbriefkasten', by:'A. Dietrich', prods:[p('Standbriefkasten','bk')], date:'Oktober 2022'},
+    {id:'fw39', cats:['bk'], cap:'Briefkasten', by:'K. Thomas', prods:[p('Briefkasten','bk')], date:'Oktober 2022'},
+    {id:'fw45', cats:['bk'], cap:'Briefkasten', by:'L. Fuchs', prods:[p('Briefkasten','bk')], date:'Dezember 2022'},
+    {id:'fw42', cats:['tk'], cap:'Türklingel', by:'C. Beck', prods:[p('Türklingel','tk')], date:'November 2022'},
+    {id:'fw10', cats:['hn','sp'], cap:'Hausnummernschilder mit Video-Türsprechanlage', by:'R. Becker', prods:[p('Hausnummernschilder','hn'),p('Video-Türsprechanlage','sp')], date:'Dezember 2021'},
+    {id:'fw06', cats:['bk'], cap:'Briefkasten', by:'D. Schulte', prods:[p('Briefkasten','bk')], date:'Januar 2022'},
+    {id:'fw25', cats:['bk'], cap:'Briefkasten', by:'V. Haas', prods:[p('Briefkasten','bk')], date:'Juni 2022'},
+    {id:'fw16', cats:['tk'], cap:'Türklingeln', by:'A. Peters', prods:[p('Türklingel','tk')], date:'August 2021'},
+    {id:'fw32', cats:['bk'], cap:'Briefkasten', by:'R. Busch', prods:[p('Briefkasten','bk')], date:'August 2022'},
+    {id:'fw27', cats:['bk','tk'], cap:'Briefkasten mit Funkklingel', by:'J. Arnold', prods:[p('Briefkasten','bk'),p('Funkklingel','tk')], date:'Juli 2022'},
+    {id:'fw15', cats:['sp'], cap:'Video-Türsprechanlage', by:'C. Möller', prods:[p('Video-Türsprechanlage','sp')], date:'August 2021'},
+    {id:'fw31', cats:['sp'], cap:'Video-Türsprechanlage', by:'P. Horn', prods:[p('Video-Türsprechanlage','sp')], date:'August 2022'},
+    {id:'fw04', cats:['hn'], cap:'Hausnummernschild', by:'S. Hartmann', prods:[p('Hausnummernschild','hn')], date:'Februar 2022'},
+    {id:'fw08', cats:['bk','tk'], cap:'Design-Briefkasten mit Funkklingel', by:'P. Koch', prods:[p('Design-Briefkasten','bk'),p('Funkklingel','tk')], date:'Dezember 2021'},
+    {id:'fw09', cats:['bk','tk','hn'], cap:'Briefkasten mit Funkklingel und Hausnummernschild', by:'N. Richter', prods:[p('Briefkasten','bk'),p('Funkklingel','tk'),p('Hausnummernschild','hn')], date:'Dezember 2021'},
+    {id:'fw05', cats:['hn'], cap:'Modernes Hausnummernschild', by:'B. Wolf', prods:[p('Hausnummernschild','hn')], date:'Februar 2022'},
+    {id:'fw12', cats:['hn'], cap:'Quadratisches Hausnummernschild', by:'I. Keller', prods:[p('Hausnummernschild','hn')]},
+    {id:'fw02', cats:['sp'], cap:'VDM10 Video-Türsprechanlage', by:'M. Schröder', prods:[p('VDM10 Video-Türsprechanlage','sp')], date:'März 2022'}
   ];
 
   // fill any static [data-img]
@@ -4604,7 +4596,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     var track = document.querySelector('[data-track]');
     var src = (window.HEROIMG || {}).siebert3;
     if(!track || !src) return;
-    var sd = { src: src, cap: 'Briefkasten »Siebert« aus hochwertigem Edelstahl', prods: [p('Briefkasten »Siebert«','bk')] };
+    var sd = { src: src, cap: 'Briefkasten »Siebert« aus hochwertigem Edelstahl', by: 'M. Lindner', prods: [p('Briefkasten »Siebert«','bk')] };
     var s=document.createElement('figure'); s.className='gal-hero__slide';
     var im=document.createElement('img'); im.src=sd.src; im.alt=sd.cap; s.appendChild(im);
     s.style.cursor='pointer';
@@ -4630,7 +4622,7 @@ h1,h2,h3,.display{text-wrap:balance;}
       return '<a class="pchip" href="'+href+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+tagSvg()+pr.name+'</a>';
     }).join('');
     btn.innerHTML =
-      '<span class="gal-tile__flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>Gewinnerfoto</span>'+
+      '<span class="gal-tile__flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>'+(item.date || 'Gewinnerfoto')+'</span>'+
       '<span class="gal-tile__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>'+
       '<img src="'+(IMG[item.id]||'')+'" alt="'+item.cap.replace(/"/g,'&quot;')+'">'+
       '<span class="gal-tile__overlay"><span class="gal-tile__prods">'+prodHtml+'</span></span>';
@@ -4771,8 +4763,16 @@ h1,h2,h3,.display{text-wrap:balance;}
   var lbImg = document.getElementById('lbImg');
   var lbBlur = document.getElementById('lbBlur');
   var lbCounter = document.getElementById('lbCounter');
-  var lbTitle = document.getElementById('lbTitle');
+  var lbBy = document.getElementById('lbBy');
+  var lbByLine = document.getElementById('lbByLine');
   var lbProds = document.getElementById('lbProds');
+  var lbFlagText = document.getElementById('lbFlagText');
+  // tag "Gewinnerfoto · <Monat>" and the "Eingereicht von <Name>" line (hidden when unknown)
+  function setLbMeta(date, by){
+    if(lbFlagText) lbFlagText.textContent = date ? 'Gewinnerfoto · ' + date : 'Gewinnerfoto';
+    if(lbBy) lbBy.textContent = by || '';
+    if(lbByLine) lbByLine.hidden = !by;
+  }
   var idx = 0;
   var visibleIndexes = function(){
     var arr=[]; GALLERY.forEach(function(it,i){ if(current==='all'||it.cats.indexOf(current)!==-1) arr.push(i); }); return arr;
@@ -4783,7 +4783,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     var src = IMG[item.id]||'';
     lbImg.src = src; lbImg.alt = item.cap;
     lbBlur.src = src;
-    lbTitle.textContent = item.cap;
+    setLbMeta(item.date, item.by);
     var vis = visibleIndexes(); var pos = vis.indexOf(i);
     lbCounter.textContent = (pos<0?1:pos+1) + '/' + (vis.length||GALLERY.length);
     lbProds.innerHTML = item.prods.map(function(pr){
@@ -4825,7 +4825,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     var item=null; if(sd.lb){ for(var i=0;i<GALLERY.length;i++){ if(GALLERY[i].id===sd.lb){ item=GALLERY[i]; break; } } }
     var cap = sd.cap || (item?item.cap:'Gewinnerfoto aus dem Metzler Fotowettbewerb');
     var prods = (item?item.prods:null) || sd.prods || [];
-    lbImg.src=sd.src; lbImg.alt=cap; lbBlur.src=sd.src; lbTitle.textContent=cap;
+    lbImg.src=sd.src; lbImg.alt=cap; lbBlur.src=sd.src; setLbMeta(sd.date, sd.by);
     lbProds.innerHTML = prodRows(prods);
     if(lbProdsLabel) lbProdsLabel.style.display = prods.length ? '' : 'none';
     setLbMode(true);
@@ -4882,14 +4882,15 @@ h1,h2,h3,.display{text-wrap:balance;}
     var prevBtn = document.querySelector('[data-winner-nav="prev"]');
     var nextBtn = document.querySelector('[data-winner-nav="next"]');
     var N = META.length;
-    // when the main image is out of view (mobile: thumbnails sit below it), scroll it into view
-    // On the stacked (mobile/tablet) layout the image sits above the strip, so any
-    // control scrolls the image up to sit 2px below the sticky header (the section sits
-    // above the gallery, where the filter toolbar isn't stuck).
+    // On the stacked (mobile/tablet) layout a tap on a thumbnail or arrow scrolls the photo
+    // up to sit 2px below the sticky header, but only when part of it is out of view
+    // (the thumbnails sit right under the photo, so it usually is in view already).
     function reveal(){
       if(!media || window.innerWidth > 1200) return;
       var header = document.querySelector('.header');
       var hH = header ? header.getBoundingClientRect().height : 0;
+      var r = media.getBoundingClientRect();
+      if(r.top >= hH && r.bottom <= window.innerHeight) return;
       var y = window.scrollY + media.getBoundingClientRect().top - hH - 2;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
@@ -4904,7 +4905,7 @@ h1,h2,h3,.display{text-wrap:balance;}
       im.alt='Siegerbild des Monats '+m.month+' – eingereicht von '+m.name;
       s.appendChild(im);
       // `prod` is a placeholder for now — later set m.prod = {name, href} per winner
-      var sd={ src:WIMG[m.key], cap:'Siegerbild des Monats · '+m.month+' · '+m.name, prods:[ m.prod || {name:'Produkt im Bild', href:'#'} ] };
+      var sd={ src:WIMG[m.key], cap:'Siegerbild des Monats · '+m.month+' · '+m.name, date:m.month, by:m.name, prods:[ m.prod || {name:'Produkt im Bild', href:'#'} ] };
       s.addEventListener('click', function(){ openHeroLightbox(sd); });
       s.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openHeroLightbox(sd); } });
       track.appendChild(s);
@@ -4922,25 +4923,16 @@ h1,h2,h3,.display{text-wrap:balance;}
         railEl.appendChild(b); thumbs.push(b);
       });
     }
-    // side chevrons navigate the carousel (prev/next): updates the main image and
-    // active thumbnail; paint() keeps the active thumb in view. No reveal() here —
-    // paging through the strip should not jump the page up to the main image.
-    Array.prototype.forEach.call(document.querySelectorAll('[data-rail-nav]'), function(btn){
-      btn.addEventListener('click', function(){
-        if(btn.getAttribute('data-rail-nav')==='next') next(); else prev();
-        restart();
-      });
-    });
     function realOf(p){ return ((p-1)%N+N)%N; }
     function paint(real){
       if(credit)  credit.textContent  = 'Eingereicht von ' + META[real].name;
       if(eyebrow) eyebrow.textContent = 'Gewinner · ' + META[real].month;
       if(counter) counter.textContent = pad(real+1) + ' / ' + N;
-      for(var t=0;t<thumbs.length;t++){ thumbs[t].classList.toggle('is-active', t===real); }
-      // when the rail is a horizontal scroll strip (mobile), keep the active thumb in view
+      for(var t=0;t<thumbs.length;t++){ thumbs[t].classList.toggle('is-active', t===real); thumbs[t].setAttribute('aria-pressed', t===real ? 'true' : 'false'); }
+      // when the rail is a swipe strip, keep the active thumb centred in it (only the strip moves, never the page)
       if(railEl && railEl.scrollWidth > railEl.clientWidth + 4 && thumbs[real]){
         var at=thumbs[real];
-        railEl.scrollTo({ left: at.offsetLeft - (railEl.clientWidth - at.offsetWidth)/2 });
+        railEl.scrollTo({ left: railEl.scrollLeft + at.getBoundingClientRect().left - railEl.getBoundingClientRect().left - (railEl.clientWidth - at.offsetWidth)/2, behavior:'smooth' });
       }
     }
     function apply(p, anim){ track.classList.toggle('is-anim', !!anim); track.style.transform='translateX(-'+(p*100)+'%)'; }
