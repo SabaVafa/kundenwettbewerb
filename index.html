@@ -3506,6 +3506,7 @@ p{margin:0 0 1rem;}
 .gal-hero__slides{position:absolute; inset:0; display:flex; height:100%;}
 .gal-hero__slide{flex:0 0 100%; height:100%; margin:0; overflow:hidden;}
 .gal-hero__slide img{width:100%; height:100%; object-fit:cover; display:block;}
+.gal-hero__slide:focus-visible{outline:0.1875rem solid var(--color-mint); outline-offset:-0.3rem;}
 .gal-hero__slider::after{content:""; position:absolute; left:0; right:0; bottom:0; height:45%; z-index:2; pointer-events:none; background:linear-gradient(to top, rgba(0,0,0,0.55), transparent);}
 /* floating shoppable product card (updated per slide) */
 .gal-hero__prodcard{position:absolute; z-index:3; left:1.15rem; bottom:1.15rem; max-width:min(20rem,74%); display:flex; flex-direction:column; align-items:flex-start; gap:0.2rem; text-align:left; padding:0.8rem 1rem; background:rgba(255,255,255,0.96); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); border:0; border-radius:var(--radius); box-shadow:0 0.75rem 1.5rem rgba(0,0,0,0.28); cursor:pointer; transition:transform .18s ease, box-shadow .18s ease;}
@@ -3629,6 +3630,7 @@ p{margin:0 0 1rem;}
 /* ============ LIGHTBOX — matches the PDP Bewertungen modal (.rvw-lb), with a blurred same-image backdrop ============ */
 .gal-lb{position:fixed; inset:0; z-index:1000; display:none; align-items:center; justify-content:center; padding:clamp(0.75rem,3vw,2.5rem);}
 .gal-lb.is-open{display:flex;}
+.gal-lb:focus{outline:none;}   /* focused programmatically on open so screen readers announce the dialog */
 /* scroll-lock while a modal is open — overflow:hidden on the real scroller (html+body)
    locks without repositioning, so there's no jump on open/close */
 html.gal-lb-lock{overflow:hidden;}
@@ -4346,7 +4348,7 @@ h1,h2,h3,.display{text-wrap:balance;}
 </footer>
 
 <!-- ============ LIGHTBOX — PDP Bewertungen-style ============ -->
-<div class="gal-lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Gewinnergalerie Detailansicht">
+<div class="gal-lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Gewinnergalerie Detailansicht" tabindex="-1">
   <div class="gal-lb__backdrop" id="lbBackdrop"></div>
   <div class="gal-lb__dialog">
     <div class="gal-lb__stage">
@@ -4612,7 +4614,9 @@ h1,h2,h3,.display{text-wrap:balance;}
     var s=document.createElement('figure'); s.className='gal-hero__slide';
     var im=document.createElement('img'); im.src=sd.src; im.alt=sd.cap; s.appendChild(im);
     s.style.cursor='pointer';
+    s.setAttribute('role','button'); s.setAttribute('tabindex','0'); s.setAttribute('aria-label','Gewinnerfoto vergrößern');
     s.addEventListener('click', function(){ openHeroLightbox(sd); });
+    s.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openHeroLightbox(sd); } });
     track.appendChild(s);
   })();
 
@@ -4831,7 +4835,11 @@ h1,h2,h3,.display{text-wrap:balance;}
   var _lbScrollY = 0;
   function lockScroll(){ _lbScrollY = window.scrollY || window.pageYOffset || 0; var sw = window.innerWidth - document.documentElement.clientWidth; document.documentElement.classList.add('gal-lb-lock'); document.body.style.top = (-_lbScrollY) + 'px'; if(sw>0) document.body.style.paddingRight = sw + 'px'; }
   function unlockScroll(){ var h = document.documentElement; var prev = h.style.scrollBehavior; h.style.scrollBehavior = 'auto'; /* html has scroll-behavior:smooth — force instant so the restore doesn't animate */ h.classList.remove('gal-lb-lock'); document.body.style.top = ''; document.body.style.paddingRight = ''; window.scrollTo(0, _lbScrollY); h.style.scrollBehavior = prev; }
-  function openLightbox(i){ idx=i; setLbMode(false); if(lbProdsLabel) lbProdsLabel.style.display=''; render(i); galLbOpen=true; lbPause.forEach(function(f){ f(); }); lb.classList.add('is-open'); lockScroll(); }
+  // keyboard focus: into the dialog on open, kept inside while open (Tab cycles), back to the opener on close
+  var lbOpener = null;
+  function lbFocusIn(){ lbOpener = document.activeElement; lb.focus({ preventScroll: true }); }
+  function lbFocusables(){ return [].filter.call(lb.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])'), function(el){ return el.offsetParent !== null && !el.disabled; }); }
+  function openLightbox(i){ idx=i; setLbMode(false); if(lbProdsLabel) lbProdsLabel.style.display=''; render(i); galLbOpen=true; lbPause.forEach(function(f){ f(); }); lb.classList.add('is-open'); lockScroll(); lbFocusIn(); }
   // Hero carousel slides open their own photo, mapped to a gallery item for the product links
   function openHeroLightbox(sd){
     var item=null; if(sd.lb){ for(var i=0;i<GALLERY.length;i++){ if(GALLERY[i].id===sd.lb){ item=GALLERY[i]; break; } } }
@@ -4842,9 +4850,10 @@ h1,h2,h3,.display{text-wrap:balance;}
     if(lbProdsLabel) lbProdsLabel.style.display = prods.length ? '' : 'none';
     setLbMode(true);
     galLbOpen=true; lbPause.forEach(function(f){ f(); });
-    lb.classList.add('is-open'); lockScroll();
+    lb.classList.add('is-open'); lockScroll(); lbFocusIn();
   }
-  function closeLightbox(){ lb.classList.remove('is-open'); unlockScroll(); galLbOpen=false; lbResume.forEach(function(f){ f(); }); }
+  function closeLightbox(){ lb.classList.remove('is-open'); unlockScroll(); galLbOpen=false; lbResume.forEach(function(f){ f(); });
+    if(lbOpener && document.contains(lbOpener) && lbOpener.focus) lbOpener.focus({ preventScroll: true }); lbOpener = null; }
   function step(dir){
     var vis = visibleIndexes(); if(!vis.length) return;
     var pos = vis.indexOf(idx); if(pos===-1) pos=0;
@@ -4865,6 +4874,12 @@ h1,h2,h3,.display{text-wrap:balance;}
     if(e.key==='Escape') closeLightbox();
     else if(e.key==='ArrowLeft') step(-1);
     else if(e.key==='ArrowRight') step(1);
+    else if(e.key==='Tab'){
+      var f = lbFocusables(); if(!f.length){ e.preventDefault(); return; }
+      var i = f.indexOf(document.activeElement);
+      if(e.shiftKey && i <= 0){ e.preventDefault(); f[f.length-1].focus(); }
+      else if(!e.shiftKey && (i === -1 || i === f.length-1)){ e.preventDefault(); f[0].focus(); }
+    }
   });
 
   /* ---- Siegerbild des Monats: auto-sliding carousel of recent monthly winners ---- */
