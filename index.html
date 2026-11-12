@@ -4186,12 +4186,12 @@ h1,h2,h3,.display{text-wrap:balance;}
             </div>
             <div class="gal-field gal-field--row">
               <div class="field-wrapper">
-                <input class="form-control" id="ugcFirst" type="text" autocomplete="given-name" placeholder=" ">
-                <label for="ugcFirst">Vorname (optional)</label>
+                <input class="form-control" id="ugcFirst" type="text" autocomplete="given-name" placeholder=" " required>
+                <label for="ugcFirst">Vorname</label>
               </div>
               <div class="field-wrapper">
-                <input class="form-control" id="ugcLast" type="text" autocomplete="family-name" placeholder=" ">
-                <label for="ugcLast">Nachname (optional)</label>
+                <input class="form-control" id="ugcLast" type="text" autocomplete="family-name" placeholder=" " required>
+                <label for="ugcLast">Nachname</label>
               </div>
             </div>
             <div class="gal-field">
@@ -5026,6 +5026,8 @@ h1,h2,h3,.display{text-wrap:balance;}
   var form = document.getElementById('ugcForm');
   var order = document.getElementById('ugcOrder');
   var orderCount = document.getElementById('ugcOrderCount');
+  var fname = document.getElementById('ugcFirst');
+  var lname = document.getElementById('ugcLast');
   var mail = document.getElementById('ugcMail');
   var consent = document.getElementById('ugcConsent');
   var consentWrap = document.getElementById('ugcConsentWrap');
@@ -5071,13 +5073,15 @@ h1,h2,h3,.display{text-wrap:balance;}
     ['dragleave','dragend'].forEach(function(ev){ drop.addEventListener(ev, function(e){ drop.classList.remove('is-drag'); }); });
     drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('is-drag'); var f=e.dataTransfer&&e.dataTransfer.files; if(f&&f.length){ try{ files.files=f; }catch(err){} if(dropT) dropT.textContent = filesLabel(f.length); checkCount(f.length); } });
   }
-  [order, mail].forEach(function(inp){ if(inp) inp.addEventListener('input', function(){ setFieldError(inp, ''); }); });
+  [order, fname, lname, mail].forEach(function(inp){ if(inp) inp.addEventListener('input', function(){ setFieldError(inp, ''); }); });
   if(consent) consent.addEventListener('change', function(){ if(consent.checked) setGroupError(consentWrap, consentWrap.parentNode, ''); });
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var first = null;
     function fail(el){ if(!first) first = el; }
     if(!order.value.trim()){ setFieldError(order, 'Bitte Bestellnummer eingeben'); fail(order); }
+    if(!fname.value.trim()){ setFieldError(fname, 'Bitte Vorname eingeben'); fail(fname); }
+    if(!lname.value.trim()){ setFieldError(lname, 'Bitte Nachname eingeben'); fail(lname); }
     if(!mail.value.trim()){ setFieldError(mail, 'Bitte E-Mail-Adresse eingeben'); fail(mail); }
     else if(!mail.checkValidity()){ setFieldError(mail, 'Bitte gültige E-Mail eingeben'); fail(mail); }
     if(drop && !hasFiles()){ setGroupError(drop, drop.parentNode, 'Bitte mindestens ein Foto auswählen'); fail(drop); }
