@@ -3447,9 +3447,9 @@ p{margin:0 0 1rem;}
 /* Large screens: aspect-ratio-locked banner (grows taller with width) like the
    About-Us hero — copy vertically centered, image fills 1fr at full height (no gap) */
 .gal-hero__grid{display:grid; grid-template-columns:min(calc(44% + 16px), 660px) 1fr; gap:clamp(1.5rem,3vw,3.5rem); align-items:stretch; aspect-ratio:3.4 / 1.2; padding-block:0;}
-/* centered between the breadcrumb overlay (text ends 2.3125rem from the top) and the bottom edge, at least 2.3125rem
-   (37px, the About-us breadcrumb -> kicker gap) from both; the banner grows when the copy needs more height */
-.gal-hero__copy{max-width:40rem; align-self:center; padding-block:4.625rem 2.3125rem;}
+/* centered in the full banner like About-us (equal space above the eyebrow and below the button), at least 4.5625rem
+   (73px = About-us at 1440: 36px under the breadcrumb); the banner grows when the copy needs more height */
+.gal-hero__copy{max-width:40rem; align-self:center; padding-block:4.5625rem;}
 .gal-hero__lead{max-width:34rem;}
 /* Hero type and spacing follow the About-Us hero (.mtz-hero): eyebrow muted white, 20px below · title 2.875rem/1.25 (2rem on phones), 35px below · chips, 25px below ·
    body 1rem/1.5, 44px below the lead (stacked layouts: see the 1279px and 48rem queries) */
