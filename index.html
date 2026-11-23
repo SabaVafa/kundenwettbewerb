@@ -4570,12 +4570,12 @@ h1,h2,h3,.display{text-wrap:balance;}
   var galLbOpen = false, lbPause = [], lbResume = [];
   var CATS = {
     all:{label:'Alle', href:null},
-    bk:{label:'Briefkästen', href:'https://edelstahl-tuerklingel.de/briefkasten'},
-    sp:{label:'Video-Sprechanlagen', href:'https://edelstahl-tuerklingel.de/sprechanlagen-sets'},
-    tk:{label:'Türklingeln', href:'https://edelstahl-tuerklingel.de/tuerklingel'},
-    pb:{label:'Paketboxen', href:'https://edelstahl-tuerklingel.de/paketboxen'},
-    hn:{label:'Hausnummern', href:'https://edelstahl-tuerklingel.de/hausnummern-schilder-schriftzuege'},
-    mt:{label:'Mülltonnenboxen', href:'https://edelstahl-tuerklingel.de/muelltonnenbox'}
+    bk:{label:'Briefkästen'},
+    sp:{label:'Video-Sprechanlagen'},
+    tk:{label:'Türklingeln'},
+    pb:{label:'Paketboxen'},
+    hn:{label:'Hausnummern'},
+    mt:{label:'Mülltonnenboxen'}
   };
   function p(name,cat,href){return {name:name, cat:cat, href:href};}
   // the monthly winners with a known month and name, newest first
@@ -4616,9 +4616,9 @@ h1,h2,h3,.display{text-wrap:balance;}
     btn.type = 'button';
     btn.setAttribute('data-cats', item.cats.join(' '));
     btn.setAttribute('aria-label', 'Foto ansehen: ' + item.cap);
+    // product tags are labels, not links (no live-shop links); a tap opens the photo with its products
     var prodHtml = item.prods.map(function(pr){
-      var href = pr.href || (CATS[pr.cat]||{}).href || '#';
-      return '<a class="pchip" href="'+href+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+tagSvg()+pr.name+'</a>';
+      return '<span class="pchip">'+tagSvg()+pr.name+'</span>';
     }).join('');
     btn.innerHTML =
       '<span class="gal-tile__flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>'+(item.date || 'Gewinnerfoto')+'</span>'+
@@ -4785,11 +4785,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     setLbMeta(item.date, item.by);
     var vis = visibleIndexes(); var pos = vis.indexOf(i);
     lbCounter.textContent = (pos<0?1:pos+1) + '/' + (vis.length||GALLERY.length);
-    lbProds.innerHTML = item.prods.map(function(pr){
-      var c = CATS[pr.cat]||{}; var href = pr.href || c.href || '#';
-      return '<div class="gal-lb__prod"><span class="gal-lb__prod-name">'+pr.name+'</span>'+
-             '<a class="btn btn-primary btn-sm" href="'+href+'" target="_blank" rel="noopener">Zum Produkt</a></div>';
-    }).join('');
+    lbProds.innerHTML = prodRows(item.prods);
   }
   var lbPrevBtn = document.getElementById('lbPrev');
   var lbNextBtn = document.getElementById('lbNext');
@@ -4800,14 +4796,11 @@ h1,h2,h3,.display{text-wrap:balance;}
     if(lbNextBtn) lbNextBtn.style.display = isHero ? 'none' : '';
     if(lbCounter) lbCounter.style.display = isHero ? 'none' : '';
   }
+  // "Zum Produkt" stays inert: the prototype has no links to the live shop
   function prodRows(prods){
     return prods.map(function(pr){
-      var c = CATS[pr.cat]||{}; var href = pr.href || c.href || '#';
-      // '#' = placeholder (winner product not yet linked): render an inert button
-      var link = href==='#'
-        ? '<a class="btn btn-primary btn-sm" href="#" onclick="event.preventDefault()">Zum Produkt</a>'
-        : '<a class="btn btn-primary btn-sm" href="'+href+'" target="_blank" rel="noopener">Zum Produkt</a>';
-      return '<div class="gal-lb__prod"><span class="gal-lb__prod-name">'+pr.name+'</span>'+link+'</div>';
+      return '<div class="gal-lb__prod"><span class="gal-lb__prod-name">'+pr.name+'</span>'+
+             '<a class="btn btn-primary btn-sm" href="#" onclick="event.preventDefault()">Zum Produkt</a></div>';
     }).join('');
   }
   // scroll lock without repositioning (no open/close jump): lock the real scroller and
