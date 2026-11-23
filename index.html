@@ -3469,7 +3469,7 @@ p{margin:0 0 1rem;}
 /* One primary CTA sized to its label, like the About-Us single-button heroes; kit height (2.625rem).
    A secondary button would be a 1.5px inset white outline (not a solid border). */
 .gal-hero__cta{display:flex; gap:1rem; flex-wrap:wrap;}
-.gal-hero__cta .btn{flex:0 0 auto; padding-inline:2rem;}
+.gal-hero__cta .btn{flex:0 0 auto;}
 .gal-hero .btn-secondary{color:var(--color-white); border:none; box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.78);}
 .gal-hero .btn-secondary:hover{background:rgba(255,255,255,0.1); color:var(--color-white); box-shadow:inset 0 0 0 1.5px var(--color-white);}
 .gal-hero .btn-secondary:active{background:rgba(255,255,255,0.1); color:var(--color-white);}
@@ -3546,7 +3546,7 @@ p{margin:0 0 1rem;}
 /* responsive: below 1280px the split gets too short for the copy — stack the
    carousel on top (full-bleed 16/9) like the About-Us hero, copy below */
 @media(max-width:1279px){ .gal-hero__grid{grid-template-columns:1fr; gap:clamp(1.5rem,3vw,3.5rem); aspect-ratio:auto; padding-block:0;} .gal-hero__copy{max-width:none; align-self:auto; padding-block:clamp(3rem,8vw,4rem);} .gal-hero .overline{margin-bottom:1.5rem;} .gal-hero .display{margin-bottom:2.25rem;} .gal-hero__chips{margin-bottom:1.4375rem;} .gal-hero__lead{margin-bottom:3.75rem;} .gal-hero__stage{display:block; order:-1; margin-inline:calc(-1 * clamp(1.5rem, 4vw, 3.5rem));} .gal-hero__slider{height:auto; aspect-ratio:16 / 9; min-height:0;} .gal-hero__meta{margin-top:0.75rem;} }
-@media(max-width:767px){ .gal-hero__grid{row-gap:0;} .gal-hero__copy{padding-block:2.5rem;} .gal-hero__lead{margin-bottom:3.25rem;} .gal-hero .display{font-size:min(2rem, 9vw);} .gal-hero__meta{justify-content:center; text-align:center;} .gal-hero__slider{aspect-ratio:3 / 2;} .gal-hero__cta{flex-direction:column;} .gal-hero__cta .btn{max-width:none; width:100%; height:auto; min-height:2.625rem; padding-inline:1rem; white-space:normal;} }
+@media(max-width:767px){ .gal-hero__grid{row-gap:0;} .gal-hero__copy{padding-block:2.5rem;} .gal-hero__lead{margin-bottom:3.25rem;} .gal-hero .display{font-size:min(2rem, 9vw);} .gal-hero__meta{justify-content:center; text-align:center;} .gal-hero__slider{aspect-ratio:3 / 2;} .gal-hero__cta{flex-direction:column;} .gal-hero__cta .btn{max-width:none; width:100%; height:auto; min-height:2.625rem; white-space:normal;} }
 @media(prefers-reduced-motion:reduce){ .gal-hero__copy > *, .gal-hero__stage{animation:none;} }
 
 /* ============ FILTER TOOLBAR ============ */
@@ -3771,7 +3771,7 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-ugc__card .alert { margin-top: 1rem; }
 /* full-width submit: label on one line down to 360px (with the phone card padding below); narrower screens
    wrap it onto two lines in a taller button instead of squeezing it into the kit height */
-.gal-ugc__card .btn-block{padding-inline:1rem; height:auto; min-height:2.625rem;}
+.gal-ugc__card .btn-block{height:auto; min-height:2.625rem;}
 @media(max-width:767px){ .gal-ugc__card{padding:1.25rem;} }
 #ugcForm:focus{outline:none;} /* focused by the step-2 "Formular" link so Tab continues in the form */
 .gal-drop{border:0.125rem dashed var(--color-graphite-400); border-radius:var(--radius-lg); background:var(--color-paper); padding:1.5rem; text-align:center; cursor:pointer; transition:border-color .14s, background .14s;}
@@ -3848,7 +3848,7 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 /* CTAs: equal-width pair at the kit height (2.625rem), primary teal +
    secondary as a 1.5px inset white outline */
 .gal-winner__cta{display:flex; flex-wrap:wrap; gap:1rem;}
-.gal-winner__cta .btn{flex:1 1 0; min-width:0; padding-inline:2rem; justify-content:center; font-size:1rem; font-weight:500;}
+.gal-winner__cta .btn{flex:1 1 0; min-width:0; justify-content:center; font-size:1rem; font-weight:500;}
 .gal-winner .btn-secondary{color:var(--color-white); border:none; box-shadow:inset 0 0 0 1.5px rgba(255,255,255,0.78);}
 .gal-winner .btn-secondary:hover{background:rgba(255,255,255,0.1); color:var(--color-white); box-shadow:inset 0 0 0 1.5px var(--color-white);}
 .gal-winner .btn-secondary:active{background:rgba(255,255,255,0.1); color:var(--color-white);}
