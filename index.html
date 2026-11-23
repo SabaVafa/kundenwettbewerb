@@ -2,7 +2,8 @@
 <html lang="de">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kundenwettbewerb</title>
+<title>Fotowettbewerb | Metzler</title>
+<meta name="description" content="Zeigen Sie uns Ihre Metzler-Produkte zu Hause: Für das Gewinnerfoto des Monats erstatten wir 50 % des Kaufpreises.">
 <style>
 /* ============ METZLER TOKENS ============ */
 :root{
@@ -3650,8 +3651,9 @@ p{margin:0 0 1rem;}
 /* scroll-lock while a modal is open — overflow:hidden on the real scroller (html+body)
    locks without repositioning, so there's no jump on open/close */
 html.gal-lb-lock{overflow:hidden;}
-/* position:fixed is what actually stops iOS Safari scrolling the background */
-html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidden;}
+/* position:fixed is what actually stops iOS Safari scrolling the background. iOS only: it resets scrollY to 0,
+   which flips the sticky header to its tall state, and the page jumped 53px on close elsewhere */
+html.gal-lb-lock--ios body{position:fixed; left:0; right:0; width:100%; overflow:hidden;}
 .gal-lb__backdrop{position:absolute; inset:0; background:rgba(8,10,12,0.78); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);}
 .gal-lb__dialog{position:relative; z-index:1; display:grid; grid-template-columns:1.15fr 0.85fr; grid-template-rows:auto minmax(0,1fr); width:min(64rem,100%); height:min(85vh,40rem); background:var(--color-white); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-modal); animation:galLbIn .22s cubic-bezier(.2,.7,.3,1) both;}
 @keyframes galLbIn{from{opacity:0; transform:translateY(0.75rem) scale(0.985);} to{opacity:1; transform:none;}}
@@ -3709,7 +3711,9 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
   .gal-lb__nav svg{width:1.3rem; height:1.3rem;}
 }
 /* very narrow: "Teilen" as an icon button (the text stays its accessible name) so title, share and close fit */
-@media(max-width:24rem){ .gal-lb__share{width:2.125rem; padding:0; gap:0; justify-content:center; font-size:0;} }
+@media(max-width:24rem){ .gal-lb__share{width:2.125rem; padding:0; gap:0; justify-content:center; font-size:0;}
+  /* product name above its button, no automatic hyphenation (long shop names split oddly at 320px) */
+  .gal-lb__prod{grid-template-columns:1fr; gap:0.5rem;} .gal-lb__prod .btn{justify-self:start;} .gal-lb__prod-name{hyphens:manual;} }
 /* short landscape screens (phones held sideways, <=480px tall): photo beside the details instead of the stacked
    sheet, which left a 150px photo and no product in view at 667x375; "Teilen" as an icon so the head fits */
 @media(max-height:30rem){
@@ -3776,12 +3780,28 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-ugc__card .btn-block{height:auto; min-height:2.625rem;}
 @media(max-width:767px){ .gal-ugc__card{padding:1.25rem;} }
 #ugcForm:focus{outline:none;} /* focused by the step-2 "Formular" link so Tab continues in the form */
+/* direct links land below the sticky header (--gal-header-h is set by the toolbar script): the entry section's
+   overline 2rem under it, the form card 2px under it like the step-2 link, the gallery bar right under it */
+#mitmachen{scroll-margin-top:calc(var(--gal-header-h, 8.375rem) - 3rem);}
+#ugcForm{scroll-margin-top:calc(var(--gal-header-h, 8.375rem) + 1.875rem);}
+#galerie{scroll-margin-top:var(--gal-header-h, 8.375rem);}
 .gal-drop{border:0.125rem dashed var(--color-graphite-400); border-radius:var(--radius-lg); background:var(--color-paper); padding:1.5rem; text-align:center; cursor:pointer; transition:border-color .14s, background .14s;}
 .gal-drop:hover{border-color:var(--color-teal); background:var(--color-teal-50);}
 .gal-drop__icon{width:2.5rem; height:2.5rem; border-radius:var(--radius-lg); background:rgba(1,82,83,0.08); color:var(--color-teal); display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.75rem;}
 .gal-drop__icon svg{width:1.5rem; height:1.5rem;}
 .gal-drop__t{font-weight:600; color:var(--color-graphite-700); margin:0 0 0.5rem; font-size:0.9375rem;}
 .gal-drop.is-drag{border-color:var(--color-teal); background:var(--color-teal-50);}
+.gal-drop.is-disabled{opacity:0.6; cursor:default; pointer-events:none;}
+/* touch screens can't drag files in: only the button shows */
+@media(hover:none){ .gal-drop__t{display:none;} }
+/* picked photos: name, size, remove */
+.gal-files{list-style:none; margin:0.75rem 0 0; padding:0; display:flex; flex-direction:column; gap:0.5rem;}
+.gal-files[hidden]{display:none;}
+.gal-files__item{display:flex; align-items:center; gap:0.75rem; padding:0.5rem 0.75rem; border:0.0625rem solid var(--color-graphite-200); border-radius:var(--radius); background:var(--color-white); font-size:0.875rem;}
+.gal-files__name{flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--color-digital-black);}
+.gal-files__size{flex:none; color:var(--color-graphite-600); font-variant-numeric:tabular-nums;}
+.gal-files__remove{flex:none; border:0; background:none; padding:0.25rem 0; color:var(--color-teal); font:inherit; font-weight:600; text-decoration:underline; text-underline-offset:0.15em; cursor:pointer;}
+.gal-files__remove:hover{color:var(--color-teal-600);}
 .gal-prize{display:flex; align-items:center; gap:0.85rem; margin-top:1.5rem; padding:1rem 1.15rem; border-radius:var(--radius-lg); background:var(--color-teal-50); border:0.0625rem solid var(--color-teal-100);}
 .gal-prize__icon{flex-shrink:0; width:2.5rem; height:2.5rem; border-radius:50%; background:var(--color-teal); color:var(--color-white); display:flex; align-items:center; justify-content:center;}
 .gal-prize__icon svg{width:1.3rem; height:1.3rem;}
@@ -3836,6 +3856,13 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-winner__nav:hover{background:var(--color-white); color:var(--color-digital-black);}
 .gal-winner__nav:active{background:var(--color-white); color:var(--color-digital-black); transform:translateY(-50%) scale(0.94);}
 .gal-winner__nav svg{width:1.05rem; height:1.05rem;}
+/* pause/play for the auto-advancing band (WCAG 2.2.2); play = kit NAV-24-abspielen, the kit has no pause icon yet */
+.gal-winner__pause{position:absolute; top:clamp(0.5rem,1.5vw,1rem); right:clamp(0.5rem,1.5vw,1rem); z-index:4; width:2.125rem; height:2.125rem; display:grid; place-items:center; cursor:pointer; color:var(--color-white); background:rgba(0,0,0,0.28); border:0.0625rem solid rgba(255,255,255,0.85); border-radius:var(--radius); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); transition:background .15s ease, color .15s ease;}
+.gal-winner__pause:hover{background:var(--color-white); color:var(--color-digital-black);}
+.gal-winner__pause[hidden]{display:none;}
+.gal-winner__pause svg{width:1.05rem; height:1.05rem;}
+.gal-winner__play-i, .gal-winner__pause.is-paused .gal-winner__pause-i{display:none;}
+.gal-winner__pause.is-paused .gal-winner__play-i{display:block;}
 .gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; line-height:1.4; color:var(--color-star); margin:0 0 1.25rem;}
 .gal-winner__eyebrow svg{width:1rem; height:1rem;}
 .gal-winner__title{font-size:2.05rem; line-height:1.25; font-weight:700; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1.25rem;}
@@ -4155,6 +4182,7 @@ h1,h2,h3,.display{text-wrap:balance;}
           <button class="gal-winner__nav" data-winner-nav="next" type="button" aria-label="Nächster Gewinner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           <p class="gal-winner__credit" data-winner-credit></p>
           <span class="gal-winner__counter" data-winner-counter></span>
+          <button class="gal-winner__pause" type="button" data-winner-pause aria-label="Diashow anhalten"><svg class="gal-winner__pause-i" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6.5v11M15 6.5v11"/></svg><svg class="gal-winner__play-i" aria-hidden="true" data-icon="NAV-24-abspielen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6.3v11.4a1.2 1.2 0 0 0 1.8 1l9-5.7a1.2 1.2 0 0 0 0-2l-9-5.7A1.2 1.2 0 0 0 8 6.3z"/></svg></button>
         </div>
         <div class="gal-winner__body">
           <p class="gal-winner__eyebrow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span data-winner-eyebrow>Gewinner</span></p>
@@ -4230,9 +4258,9 @@ h1,h2,h3,.display{text-wrap:balance;}
             <!-- Eingabefelder (handoff 10.11.2026): floating labels, placeholder=" " is required; hint and error text sit inside .field-wrapper -->
             <div class="gal-field">
               <div class="field-wrapper">
-                <input class="form-control" id="ugcOrder" type="text" maxlength="30" placeholder=" " required aria-describedby="ugcOrderHint">
+                <input class="form-control" id="ugcOrder" type="text" inputmode="numeric" autocomplete="off" maxlength="30" placeholder=" " required aria-describedby="ugcOrderHint">
                 <label for="ugcOrder">Ihre Bestellnummer</label>
-                <span class="field__hint" id="ugcOrderHint">z. B. 100123456 · <span id="ugcOrderCount">0</span> von 30 Zeichen</span>
+                <span class="field__hint" id="ugcOrderHint">z. B. 100123456</span>
               </div>
             </div>
             <div class="gal-field gal-field--row">
@@ -4257,9 +4285,10 @@ h1,h2,h3,.display{text-wrap:balance;}
                 <span class="gal-drop__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg></span>
                 <p class="gal-drop__t">Fotos hierher ziehen oder</p>
                 <span class="btn btn-primary btn-sm">Dateien auswählen</span>
-                <input id="ugcFiles" type="file" multiple accept=".jpg,.jpeg,.png,.tiff,.raw,.heic,image/*" hidden>
+                <input id="ugcFiles" type="file" multiple accept=".jpg,.jpeg,.png,.tif,.tiff,.heic,.heif,.raw,.dng,.cr2,.cr3,.nef,.nrw,.arw,.orf,.rw2,.raf,.pef,.srw,image/jpeg,image/png,image/tiff,image/heic,image/heif" hidden>
               </div>
-              <span class="field__hint" id="ugcFilesHint">JPG, PNG, TIFF, HEIC oder RAW · max. 100 MB · bis zu 5 Fotos</span>
+              <ul class="gal-files" id="ugcFileList" aria-label="Ausgewählte Fotos" hidden></ul>
+              <span class="field__hint" id="ugcFilesHint">JPG, PNG, TIFF, HEIC oder RAW · bis zu 5 Fotos · max. 100 MB pro Foto</span>
             </div>
             <!-- Kit checkbox (25px, teal when checked) on a real, visually hidden input so keyboard and screen readers work -->
             <div class="gal-field">
@@ -4270,7 +4299,7 @@ h1,h2,h3,.display{text-wrap:balance;}
               </label>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Teilnahme absenden</button>
-            <div class="alert alert-success alert--flat" id="ugcOk" role="status" hidden>
+            <div class="alert alert-success alert--flat" id="ugcOk" role="status" tabindex="-1" hidden>
               <span class="alert__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></span>
               <div class="alert__body">
                 <p class="alert__title">Vielen Dank für Ihre Teilnahme</p>
@@ -4401,8 +4430,8 @@ h1,h2,h3,.display{text-wrap:balance;}
   <div class="gal-lb__backdrop" id="lbBackdrop"></div>
   <div class="gal-lb__dialog">
     <div class="gal-lb__stage">
-      <img class="gal-lb__blur" id="lbBlur" alt="" aria-hidden="true">
-      <img class="gal-lb__img" id="lbImg" alt="">
+      <img class="gal-lb__blur" id="lbBlur" width="960" height="960" alt="" aria-hidden="true">
+      <img class="gal-lb__img" id="lbImg" width="960" height="960" alt="">
       <span class="gal-lb__counter" id="lbCounter"></span>
       <button class="gal-lb__nav" data-dir="prev" id="lbPrev" aria-label="Vorheriges Bild"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
       <button class="gal-lb__nav" data-dir="next" id="lbNext" aria-label="Nächstes Bild"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -4601,12 +4630,12 @@ h1,h2,h3,.display{text-wrap:balance;}
   // the monthly winners with a known month and name, newest first
   var GALLERY = [
     {id:'fw44', cats:['bk','hn'], cap:'Briefkasten mit Edelstahl-Schriftzug für Straße & Hausnummer', by:'Anna M.', prods:[p('Briefkasten','bk'),p('Edelstahl-Schriftzug','hn')], date:'Dezember 2022'},
-    {id:'fw43', cats:['bk','hn'], cap:'Briefkasten mit Hausnummernschild', by:'Julie G.', prods:[p('Metzler Briefkasten mit Edelstahl-Namensschild | Enno','bk'),p('Haus\u00ADnummern\u00ADschild','hn')], date:'November 2022'},
+    {id:'fw43', cats:['bk','hn'], cap:'Briefkasten Enno mit Hausnummernschild', by:'Julie G.', prods:[p('Metzler Briefkasten mit Edelstahl-Namensschild | Enno','bk'),p('Haus\u00ADnummern\u00ADschild','hn')], date:'November 2022'},
     {id:'fw39', cats:['bk'], cap:'Briefkasten', by:'Uwe S.', prods:[p('Briefkasten','bk')], date:'Oktober 2022'},
-    {id:'fw36', cats:['bk'], cap:'Briefkasten', by:'Heidi W.', prods:[p('Metzler Briefkasten | personalisiert mit Gravur | RAL 7016 Anthrazit | Zeppelin','bk')], date:'September 2022'},
-    {id:'fw29', cats:['bk'], cap:'Briefkasten', by:'Alfred A.', prods:[p('Metzler Briefkasten aus hochwertigem Stahl | Siebert','bk')], date:'Juli 2022'},
-    {id:'fw25', cats:['bk'], cap:'Briefkasten', by:'Tobias Z.', prods:[p('Metzler Briefkasten austauschbares Namensschild | Ebenhard','bk')], date:'Juni 2022'},
-    {id:'fw01', cats:['bk','tk'], cap:'Standbriefkasten mit Aufputz-Klingel', by:'Alexander A.', prods:[p('Metzler Stand\u00ADbrief\u00ADkasten | Standfuß aus Edelstahl | mit Lasergravur | Hermann','bk'),p('Aufputz-Klingel','tk')], date:'Mai 2022'},
+    {id:'fw36', cats:['bk'], cap:'Briefkasten Zeppelin', by:'Heidi W.', prods:[p('Metzler Briefkasten | personalisiert mit Gravur | RAL 7016 Anthrazit | Zeppelin','bk')], date:'September 2022'},
+    {id:'fw29', cats:['bk'], cap:'Briefkasten Siebert', by:'Alfred A.', prods:[p('Metzler Briefkasten aus hochwertigem Stahl | Siebert','bk')], date:'Juli 2022'},
+    {id:'fw25', cats:['bk'], cap:'Briefkasten Ebenhard', by:'Tobias Z.', prods:[p('Metzler Briefkasten austauschbares Namensschild | Ebenhard','bk')], date:'Juni 2022'},
+    {id:'fw01', cats:['bk','tk'], cap:'Standbriefkasten Hermann mit Aufputz-Klingel', by:'Alexander A.', prods:[p('Metzler Stand\u00ADbrief\u00ADkasten | Standfuß aus Edelstahl | mit Lasergravur | Hermann','bk'),p('Aufputz-Klingel','tk')], date:'Mai 2022'},
     {id:'fw02', cats:['sp'], cap:'VDM10 Video-Türsprechanlage', by:'Jürgen S.', prods:[p('VDM10 Video-Türsprechanlage','sp')], date:'März 2022'},
     {id:'fw03', cats:['hn'], cap:'Edelstahl-Schriftzug mit Straße & Hausnummer', by:'René G.', prods:[p('Edelstahl-Schriftzug','hn')], date:'Februar 2022'},
     {id:'fw04', cats:['hn'], cap:'Hausnummernschild', by:'Mario K.', prods:[p('Haus\u00ADnummern\u00ADschild','hn')], date:'Februar 2022'},
@@ -4614,9 +4643,14 @@ h1,h2,h3,.display{text-wrap:balance;}
     {id:'fw06', cats:['bk'], cap:'Briefkasten', by:'Waldemar K.', prods:[p('Briefkasten','bk')], date:'Januar 2022'},
     {id:'fw07', cats:['sp'], cap:'VDM10 Video-Türsprechanlage', by:'Paul E.', prods:[p('VDM10 Video-Türsprechanlage','sp')], date:'Januar 2022'},
     {id:'fw08', cats:['bk','tk'], cap:'Design-Briefkasten mit Funkklingel', by:'Viktor Z.', prods:[p('Design-Briefkasten','bk'),p('Funkklingel','tk')], date:'Dezember 2021'},
-    {id:'fw09', cats:['bk','tk','hn'], cap:'Briefkasten mit Funkklingel und Hausnummernschild', by:'Matthias W.', prods:[p('Metzler Briefkasten austauschbares Namensschild | Ebenhard','bk'),p('Funkklingel','tk'),p('Haus\u00ADnummern\u00ADschild','hn')], date:'Dezember 2021'},
+    {id:'fw09', cats:['bk','tk','hn'], cap:'Briefkasten Ebenhard mit Funkklingel und Hausnummernschild', by:'Matthias W.', prods:[p('Metzler Briefkasten austauschbares Namensschild | Ebenhard','bk'),p('Funkklingel','tk'),p('Haus\u00ADnummern\u00ADschild','hn')], date:'Dezember 2021'},
     {id:'fw10', cats:['hn','sp'], cap:'Hausnummernschilder mit Video-Türsprechanlage', by:'Ernst S.', prods:[p('Haus\u00ADnummern\u00ADschilder','hn'),p('Video-Türsprechanlage','sp')], date:'Dezember 2021'}
   ];
+
+  // every photo carries its own width/height so the layout doesn't shift while they decode (kit rule)
+  var IMG_DIM = {"fw01":[960,960],"fw02":[960,960],"fw03":[960,960],"fw04":[960,960],"fw05":[960,960],"fw06":[960,960],"fw07":[960,960],"fw08":[960,701],"fw09":[960,960],"fw10":[960,960],"fw25":[960,960],"fw29":[960,720],"fw36":[960,960],"fw39":[960,960],"fw43":[960,960],"fw44":[960,960],"w2025_07":[760,760],"w2025_06":[760,760],"w2025_05":[760,751],"w2025_04":[641,760],"w2025_03":[760,760],"w2025_02":[735,760],"w2025_01":[760,760],"w2024_12":[760,760],"w2024_11":[760,743],"w2024_10":[760,760],"w2024_09":[760,760],"w2024_08":[760,751]};
+  function dimAttr(k){ var d = IMG_DIM[k]; return d ? ' width="' + d[0] + '" height="' + d[1] + '"' : ''; }
+  function setImgDims(im, k){ var d = IMG_DIM[k]; if(d){ im.width = d[0]; im.height = d[1]; } }
 
   // fill any static [data-img]
   Array.prototype.forEach.call(document.querySelectorAll('img[data-img]'), function(im){
@@ -4643,7 +4677,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     btn.innerHTML =
       '<span class="gal-tile__flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5C3 9.4 4.6 11 6.5 11H7M17 6h2.5A1.5 1.5 0 0121 7.5c0 1.9-1.6 3.5-3.5 3.5H17"/></svg>'+(item.date || 'Gewinnerfoto')+'</span>'+
       '<span class="gal-tile__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>'+
-      '<img src="'+(IMG[item.id]||'')+'" alt="'+item.cap.replace(/"/g,'&quot;')+'">'+
+      '<img src="'+(IMG[item.id]||'')+'"'+dimAttr(item.id)+' alt="'+item.cap.replace(/"/g,'&quot;')+'">'+
       '<span class="gal-tile__overlay"><span class="gal-tile__prods">'+prodHtml+'</span></span>';
     btn.addEventListener('click', function(){ openLightbox(index); });
     return btn;
@@ -4729,6 +4763,20 @@ h1,h2,h3,.display{text-wrap:balance;}
     filtersEl.appendChild(b);
   });
   applyFilter('all');
+  // a direct link to a section below the gallery (#mitmachen, #ugcForm) is resolved before the photos are laid
+  // out; once they are, jump to it again, unless the visitor has scrolled in the meantime
+  (function(){
+    var target = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if(!target) return;
+    var moved = false; function mark(){ moved = true; }
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function(ev){ window.addEventListener(ev, mark, { once: true, passive: true }); });
+    function jump(){ setTimeout(function(){
+      if(moved) return;
+      var h = document.documentElement, prev = h.style.scrollBehavior; h.style.scrollBehavior = 'auto';
+      target.scrollIntoView({ block: 'start' }); h.style.scrollBehavior = prev;
+    }, 250); }
+    if(document.readyState === 'complete') jump(); else window.addEventListener('load', jump);
+  })();
 
   /* After filtering, bring the results into view: pin the toolbar just under the
      sticky header so the first matches are visible (only scrolls up, never down) */
@@ -4769,6 +4817,7 @@ h1,h2,h3,.display{text-wrap:balance;}
       raf = 0;
       var h = header ? Math.round(header.getBoundingClientRect().height) : 0;
       toolbar.style.setProperty('--gal-sticky-top', h + 'px');
+      document.documentElement.style.setProperty('--gal-header-h', h + 'px');
       toolbar.classList.toggle('is-stuck', toolbar.getBoundingClientRect().top <= h + 0.5);
     }
     function onScroll(){ if(!raf) raf = requestAnimationFrame(update); }
@@ -4786,6 +4835,12 @@ h1,h2,h3,.display{text-wrap:balance;}
   var lbByLine = document.getElementById('lbByLine');
   var lbProds = document.getElementById('lbProds');
   var lbFlagText = document.getElementById('lbFlagText');
+  function setDims(k){ setImgDims(lbImg, k); setImgDims(lbBlur, k); }
+  // "Teilen": the share sheet where there is one, otherwise copy the link; the label says what really happened
+  // and goes back to "Teilen" after 2 s or when the photo changes
+  var lbShareBtn = document.getElementById('lbShare'), lbShareText = '', lbShareT = 0;
+  function setShareLabel(t){ if(lbShareBtn && lbShareBtn.childNodes[1]) lbShareBtn.childNodes[1].nodeValue = t; }
+  function resetShare(){ clearTimeout(lbShareT); setShareLabel('Teilen'); }
   var lbBody = document.querySelector('.gal-lb__body');
   function lbFade(){ if(lbBody) lbBody.classList.toggle('has-more', lbBody.scrollTop + lbBody.clientHeight < lbBody.scrollHeight - 4); }
   if(lbBody){ lbBody.addEventListener('scroll', lbFade, { passive:true }); window.addEventListener('resize', lbFade); }
@@ -4805,7 +4860,7 @@ h1,h2,h3,.display{text-wrap:balance;}
   function render(i){
     var item = GALLERY[i];
     var src = IMG[item.id]||'';
-    lbImg.src = src; lbImg.alt = item.cap;
+    lbImg.src = src; lbImg.alt = item.cap; setDims(item.id); lbShareText = item.cap; resetShare();
     lbBlur.src = src;
     setLbMeta(item.date, item.by);
     var vis = visibleIndexes(); var pos = vis.indexOf(i);
@@ -4830,12 +4885,12 @@ h1,h2,h3,.display{text-wrap:balance;}
   }
   // scroll lock without repositioning (no open/close jump): lock the real scroller and
   // pad for the vanished scrollbar so the page doesn't shift horizontally
-  /* iOS Safari ignores overflow:hidden for touch scrolling, so the lock pins the
-     body with position:fixed (see CSS) and offsets it by the current scroll; the
-     offset is restored on unlock so the page doesn't jump. */
-  var _lbScrollY = 0;
-  function lockScroll(){ _lbScrollY = window.scrollY || window.pageYOffset || 0; var sw = window.innerWidth - document.documentElement.clientWidth; document.documentElement.classList.add('gal-lb-lock'); document.body.style.top = (-_lbScrollY) + 'px'; if(sw>0) document.body.style.paddingRight = sw + 'px'; }
-  function unlockScroll(){ var h = document.documentElement; var prev = h.style.scrollBehavior; h.style.scrollBehavior = 'auto'; /* html has scroll-behavior:smooth — force instant so the restore doesn't animate */ h.classList.remove('gal-lb-lock'); document.body.style.top = ''; document.body.style.paddingRight = ''; window.scrollTo(0, _lbScrollY); h.style.scrollBehavior = prev; }
+  /* iOS Safari ignores overflow:hidden for touch scrolling, so there (only) the lock also pins the body with
+     position:fixed (see CSS), offset by the current scroll and restored on unlock. Everywhere else
+     overflow:hidden alone keeps scrollY, so the sticky header doesn't switch state and nothing jumps. */
+  var _lbScrollY = 0, LB_IOS = /iP(hone|od|ad)/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  function lockScroll(){ _lbScrollY = window.scrollY || window.pageYOffset || 0; var sw = window.innerWidth - document.documentElement.clientWidth; var h = document.documentElement; h.classList.add('gal-lb-lock'); if(LB_IOS){ h.classList.add('gal-lb-lock--ios'); document.body.style.top = (-_lbScrollY) + 'px'; } if(sw>0) document.body.style.paddingRight = sw + 'px'; }
+  function unlockScroll(){ var h = document.documentElement; var pinned = h.classList.contains('gal-lb-lock--ios'); var prev = h.style.scrollBehavior; h.style.scrollBehavior = 'auto'; /* html has scroll-behavior:smooth — force instant so the restore doesn't animate */ h.classList.remove('gal-lb-lock', 'gal-lb-lock--ios'); document.body.style.top = ''; document.body.style.paddingRight = ''; if(pinned) window.scrollTo(0, _lbScrollY); h.style.scrollBehavior = prev; }
   // keyboard focus: into the dialog on open, kept inside while open (Tab cycles), back to the opener on close
   var lbOpener = null;
   function lbFocusIn(){ lbOpener = document.activeElement; lb.focus({ preventScroll: true }); }
@@ -4846,7 +4901,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     var item=null; if(sd.lb){ for(var i=0;i<GALLERY.length;i++){ if(GALLERY[i].id===sd.lb){ item=GALLERY[i]; break; } } }
     var cap = sd.cap || (item?item.cap:'Gewinnerfoto aus dem Metzler Fotowettbewerb');
     var prods = (item?item.prods:null) || sd.prods || [];
-    lbImg.src=sd.src; lbImg.alt=cap; lbBlur.src=sd.src; setLbMeta(sd.date, sd.by);
+    lbImg.src=sd.src; lbImg.alt=cap; lbBlur.src=sd.src; setDims(sd.key); lbShareText = cap; resetShare(); setLbMeta(sd.date, sd.by);
     lbShowProds(prods);
     if(lbProdsLabel) lbProdsLabel.style.display = prods.length ? '' : 'none';
     setLbMode(true);
@@ -4866,9 +4921,11 @@ h1,h2,h3,.display{text-wrap:balance;}
   document.getElementById('lbPrev').addEventListener('click', function(){ step(-1); });
   document.getElementById('lbNext').addEventListener('click', function(){ step(1); });
   lb.addEventListener('click', function(e){ if(e.target===lb) closeLightbox(); });
-  document.getElementById('lbShare').addEventListener('click', function(){
-    if(navigator.share){ navigator.share({title:'Metzler Gewinnergalerie', text:GALLERY[idx].cap, url:location.href}).catch(function(){}); }
-    else { var b=document.getElementById('lbShare'); b.childNodes[1].nodeValue='Link kopiert'; }
+  lbShareBtn.addEventListener('click', function(){
+    if(navigator.share){ navigator.share({title:'Metzler Gewinnergalerie', text:lbShareText, url:location.href}).catch(function(){}); return; }
+    var done = function(ok){ setShareLabel(ok ? 'Link kopiert' : 'Kopieren nicht möglich'); clearTimeout(lbShareT); lbShareT = setTimeout(resetShare, 2000); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(location.href).then(function(){ done(true); }, function(){ done(false); }); }
+    else { done(false); }
   });
   document.addEventListener('keydown', function(e){
     if(!lb.classList.contains('is-open')) return;
@@ -4929,11 +4986,11 @@ h1,h2,h3,.display{text-wrap:balance;}
       var s=document.createElement('figure'); s.className='gal-winner__slide';
       s.setAttribute('role','button'); s.setAttribute('tabindex','0');
       s.setAttribute('aria-label','Gewinnerfoto '+m.month+' vergrößern');
-      var im=document.createElement('img'); im.src=WIMG[m.key]; im.loading='lazy';
+      var im=document.createElement('img'); im.src=WIMG[m.key]; setImgDims(im, m.key);
       im.alt='Gewinnerfoto des Monats '+m.month+' – eingereicht von '+m.name;
       s.appendChild(im);
-      // `prods` = the confirmed products per winner (no live links); the others keep the placeholder
-      var sd={ src:WIMG[m.key], cap:'Gewinnerfoto des Monats · '+m.month+' · '+m.name, date:m.month, by:m.name, prods: m.prods || [ {name:'Produkt im Bild', href:'#'} ] };
+      // `prods` = the confirmed products per winner (no live links); without any, the product block stays hidden
+      var sd={ src:WIMG[m.key], key:m.key, cap:'Gewinnerfoto des Monats · '+m.month+' · '+m.name, date:m.month, by:m.name, prods: m.prods || [] };
       s.addEventListener('click', function(){ openHeroLightbox(sd); });
       s.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openHeroLightbox(sd); } });
       track.appendChild(s);
@@ -4945,7 +5002,7 @@ h1,h2,h3,.display{text-wrap:balance;}
       META.forEach(function(m, i){
         var b=document.createElement('button'); b.type='button'; b.className='gal-winner__thumb';
         b.setAttribute('aria-label', m.month + ' – ' + m.name);
-        var im=document.createElement('img'); im.src=WIMG[m.key]; im.alt=''; im.loading='lazy';
+        var im=document.createElement('img'); im.src=WIMG[m.key]; setImgDims(im, m.key); im.alt=''; im.loading='lazy';
         b.appendChild(im);
         b.addEventListener('click', function(){ go(i+1); restart(); reveal(); });
         railEl.appendChild(b); thumbs.push(b);
@@ -4982,10 +5039,10 @@ h1,h2,h3,.display{text-wrap:balance;}
       else if(pos === 0){ snap=setTimeout(function(){ jump(N); snap=null; }, 720); }
     }
     apply(1,false); paint(0);
-    var timer=null, hovering=false;
+    var timer=null, hovering=false, focused=false, userPaused=false;
     function next(){ loopStep(1); }
     function prev(){ loopStep(-1); }
-    function start(){ if(reduce||galLbOpen||hovering) return; stop(); timer=setInterval(next, 3600); }
+    function start(){ if(reduce||galLbOpen||hovering||focused||userPaused) return; stop(); timer=setInterval(next, 3600); }
     function stop(){ if(timer){ clearInterval(timer); timer=null; } }
     function restart(){ stop(); start(); }
     if(prevBtn) prevBtn.addEventListener('click', function(){ prev(); restart(); reveal(); });
@@ -4995,6 +5052,18 @@ h1,h2,h3,.display{text-wrap:balance;}
       el.addEventListener('mouseenter', function(){ hovering=true; stop(); });
       el.addEventListener('mouseleave', function(){ hovering=false; start(); });
     });
+    // pause/play button (WCAG 2.2.2); the show also stops while keyboard focus is inside the band (mouse clicks
+    // don't count) and once the photo or the thumbnails are touched: play resumes it
+    var pauseBtn = document.querySelector('[data-winner-pause]');
+    function setPaused(p){ userPaused = p; if(pauseBtn){ pauseBtn.classList.toggle('is-paused', p); pauseBtn.setAttribute('aria-label', p ? 'Diashow abspielen' : 'Diashow anhalten'); } if(p) stop(); else start(); }
+    if(pauseBtn){ if(reduce) pauseBtn.hidden = true; pauseBtn.addEventListener('click', function(){ setPaused(!userPaused); }); }
+    function kbFocus(el){ try{ return el.matches(':focus-visible'); }catch(err){ return true; } }
+    var bandBox = track.closest('.gal-winner__grid');
+    if(bandBox){
+      bandBox.addEventListener('focusin', function(e){ if(kbFocus(e.target)){ focused = true; stop(); } });
+      bandBox.addEventListener('focusout', function(e){ if(!bandBox.contains(e.relatedTarget)){ focused = false; start(); } });
+      bandBox.addEventListener('touchstart', function(e){ var t = e.target; if(t.closest && !t.closest('[data-winner-pause]') && t.closest('.gal-winner__media, [data-winner-thumbs]')) setPaused(true); }, { passive: true });
+    }
     lbPause.push(stop); lbResume.push(start);
     start();
   })();
@@ -5064,17 +5133,14 @@ h1,h2,h3,.display{text-wrap:balance;}
     });
   });
   var order = document.getElementById('ugcOrder');
-  var orderCount = document.getElementById('ugcOrderCount');
   var fname = document.getElementById('ugcFirst');
   var lname = document.getElementById('ugcLast');
   var mail = document.getElementById('ugcMail');
   var consent = document.getElementById('ugcConsent');
   var consentWrap = document.getElementById('ugcConsentWrap');
-  if(order && orderCount){ order.addEventListener('input', function(){ orderCount.textContent = order.value.length; }); }
   var drop = document.getElementById('drop');
   var files = document.getElementById('ugcFiles');
   var dropT = drop && drop.querySelector('.gal-drop__t');
-  function filesLabel(n){ return n === 1 ? '1 Datei ausgewählt' : n + ' Dateien ausgewählt'; }
   // field errors: .field--error on the wrapper, .error on the input, .field__error on the border (kit)
   // handoff: aria-invalid + aria-describedby pointing at the error text (kept next to any hint id)
   function setFieldError(input, msg){
@@ -5100,17 +5166,48 @@ h1,h2,h3,.display{text-wrap:balance;}
     if(msg){ if(!e){ e = document.createElement('span'); e.className = 'gal-error'; e.setAttribute('role', 'alert'); field.appendChild(e); } e.textContent = msg; }
     else if(e){ e.remove(); }
   }
-  function hasFiles(){ return !!(files && files.files && files.files.length); }
-  // competition rule: up to 5 photos per entry
-  var MAX_FILES = 5, TOO_MANY = 'Bitte höchstens ' + MAX_FILES + ' Fotos auswählen';
-  function checkCount(n){ setGroupError(drop, drop.parentNode, n > MAX_FILES ? TOO_MANY : ''); }
+  // upload: JPG, PNG, TIFF, HEIC or RAW, at most 100 MB each and 5 per entry; every pick or drop is added to
+  // the list (name, size, "Entfernen") instead of replacing it, and the file input mirrors the list
+  var MAX_FILES = 5, MAX_BYTES = 100 * 1024 * 1024;
+  var PHOTO_TYPES = /\.(jpe?g|png|tiff?|heic|heif|raw|dng|cr2|cr3|nef|nrw|arw|orf|rw2|raf|pef|srw)$/i;
+  var MSG_NONE = 'Bitte wählen Sie mindestens ein Foto aus.', MSG_MANY = 'Bitte wählen Sie höchstens ' + MAX_FILES + ' Fotos aus.';
+  var picked = [], fileList = document.getElementById('ugcFileList');
+  function hasFiles(){ return picked.length > 0; }
+  function fileSize(b){ return b >= 1048576 ? (b / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+  function syncFiles(){ try{ var dt = new DataTransfer(); picked.forEach(function(f){ dt.items.add(f); }); files.files = dt.files; }catch(err){} }
+  function renderFiles(){
+    if(!fileList) return;
+    fileList.innerHTML = '';
+    picked.forEach(function(f, i){
+      var li = document.createElement('li'); li.className = 'gal-files__item';
+      var n = document.createElement('span'); n.className = 'gal-files__name'; n.textContent = f.name;
+      var s = document.createElement('span'); s.className = 'gal-files__size'; s.textContent = fileSize(f.size);
+      var x = document.createElement('button'); x.type = 'button'; x.className = 'gal-files__remove'; x.textContent = 'Entfernen';
+      x.setAttribute('aria-label', 'Foto ' + f.name + ' entfernen');
+      x.addEventListener('click', function(){ picked.splice(i, 1); syncFiles(); renderFiles(); setGroupError(drop, drop.parentNode, ''); drop.focus(); });
+      li.appendChild(n); li.appendChild(s); li.appendChild(x); fileList.appendChild(li);
+    });
+    fileList.hidden = !picked.length;
+  }
+  function addFiles(list){
+    var errs = [];
+    Array.prototype.forEach.call(list, function(f){
+      if(!PHOTO_TYPES.test(f.name)){ errs.push('„' + f.name + '“ hat kein erlaubtes Format. Erlaubt sind JPG, PNG, TIFF, HEIC oder RAW.'); return; }
+      if(f.size > MAX_BYTES){ errs.push('„' + f.name + '“ ist größer als 100 MB.'); return; }
+      if(picked.some(function(p){ return p.name === f.name && p.size === f.size; })) return;
+      if(picked.length >= MAX_FILES){ if(errs.indexOf(MSG_MANY) < 0) errs.push(MSG_MANY); return; }
+      picked.push(f);
+    });
+    syncFiles(); renderFiles();
+    setGroupError(drop, drop.parentNode, errs.join(' '));
+  }
   if(drop && files){
-    drop.addEventListener('click', function(){ files.click(); });
-    drop.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); files.click(); } });
-    files.addEventListener('change', function(){ if(hasFiles()){ if(dropT) dropT.textContent = filesLabel(files.files.length); checkCount(files.files.length); } });
+    drop.addEventListener('click', function(){ if(!drop.classList.contains('is-disabled')) files.click(); });
+    drop.addEventListener('keydown', function(e){ if((e.key==='Enter'||e.key===' ') && !drop.classList.contains('is-disabled')){ e.preventDefault(); files.click(); } });
+    files.addEventListener('change', function(){ if(files.files && files.files.length) addFiles(files.files); });
     ['dragover','dragenter'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('is-drag'); }); });
     ['dragleave','dragend'].forEach(function(ev){ drop.addEventListener(ev, function(e){ drop.classList.remove('is-drag'); }); });
-    drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('is-drag'); var f=e.dataTransfer&&e.dataTransfer.files; if(f&&f.length){ try{ files.files=f; }catch(err){} if(dropT) dropT.textContent = filesLabel(f.length); checkCount(f.length); } });
+    drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('is-drag'); if(drop.classList.contains('is-disabled')) return; var f=e.dataTransfer&&e.dataTransfer.files; if(f&&f.length) addFiles(f); });
   }
   [order, fname, lname, mail].forEach(function(inp){ if(inp) inp.addEventListener('input', function(){ setFieldError(inp, ''); }); });
   if(consent) consent.addEventListener('change', function(){ if(consent.checked) setGroupError(consentWrap, consentWrap.parentNode, ''); });
@@ -5118,17 +5215,23 @@ h1,h2,h3,.display{text-wrap:balance;}
     e.preventDefault();
     var first = null;
     function fail(el){ if(!first) first = el; }
-    if(!order.value.trim()){ setFieldError(order, 'Bitte Bestellnummer eingeben'); fail(order); }
-    if(!fname.value.trim()){ setFieldError(fname, 'Bitte Vorname eingeben'); fail(fname); }
-    if(!lname.value.trim()){ setFieldError(lname, 'Bitte Nachname eingeben'); fail(lname); }
-    if(!mail.value.trim()){ setFieldError(mail, 'Bitte E-Mail-Adresse eingeben'); fail(mail); }
-    else if(!mail.checkValidity()){ setFieldError(mail, 'Bitte gültige E-Mail eingeben'); fail(mail); }
-    if(drop && !hasFiles()){ setGroupError(drop, drop.parentNode, 'Bitte mindestens ein Foto auswählen'); fail(drop); }
-    else if(drop && files.files.length > MAX_FILES){ setGroupError(drop, drop.parentNode, TOO_MANY); fail(drop); }
-    if(!consent.checked){ setGroupError(consentWrap, consentWrap.parentNode, 'Bitte bestätigen Sie die Teilnahmebedingungen'); fail(consent); }
+    // start each check clean, so errors from an earlier try (or fields filled by autofill, which fires no input event) don't linger
+    [order, fname, lname, mail].forEach(function(inp){ setFieldError(inp, ''); }); setGroupError(consentWrap, consentWrap.parentNode, '');
+    order.value = order.value.replace(/\s+/g, ''); // spaces typed or pasted into the order number don't count
+    if(!order.value){ setFieldError(order, 'Bitte geben Sie Ihre Bestellnummer ein.'); fail(order); }
+    if(!fname.value.trim()){ setFieldError(fname, 'Bitte geben Sie Ihren Vornamen ein.'); fail(fname); }
+    if(!lname.value.trim()){ setFieldError(lname, 'Bitte geben Sie Ihren Nachnamen ein.'); fail(lname); }
+    if(!mail.value.trim()){ setFieldError(mail, 'Bitte geben Sie Ihre E-Mail-Adresse ein.'); fail(mail); }
+    else if(!mail.checkValidity() || !/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(mail.value.trim())){ setFieldError(mail, 'Bitte geben Sie eine gültige E-Mail-Adresse ein, z. B. name@beispiel.de.'); fail(mail); }
+    if(drop && !hasFiles()){ setGroupError(drop, drop.parentNode, MSG_NONE); fail(drop); }
+    if(!consent.checked){ setGroupError(consentWrap, consentWrap.parentNode, 'Bitte bestätigen Sie die Teilnahmebedingungen und die Hinweise zum Datenschutz.'); fail(consent); }
     if(first){ first.focus(); return; }
-    document.getElementById('ugcOk').hidden = false;
+    // sent: lock the entry so it can't be changed or sent twice, and move focus to the confirmation (no backend
+    // in the prototype; on a send error the live form says „Ihre Fotos konnten nicht gesendet werden. Bitte versuchen Sie es erneut.“)
+    Array.prototype.forEach.call(form.querySelectorAll('input, button'), function(el){ el.disabled = true; });
+    if(drop){ drop.classList.add('is-disabled'); drop.setAttribute('aria-disabled', 'true'); drop.setAttribute('tabindex', '-1'); }
     form.querySelector('button[type=submit]').style.display='none';
+    var ok = document.getElementById('ugcOk'); ok.hidden = false; ok.focus();
   });
 })();
 </script>
