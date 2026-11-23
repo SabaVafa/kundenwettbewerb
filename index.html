@@ -4123,19 +4123,19 @@ h1,h2,h3,.display{text-wrap:balance;}
           <span class="gal-trust__lbl">Manufaktur</span>
         </div>
         <div class="gal-trust__item">
-          <span class="gal-trust__num">1,8&nbsp;Mio.</span>
+          <span class="gal-trust__num">2&nbsp;Mio.</span>
           <span class="gal-trust__lbl">Kunden</span>
         </div>
         <div class="gal-trust__item">
-          <span class="gal-trust__num">4,7<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span>
-          <span class="gal-trust__lbl">Kundenbewertung</span>
+          <span class="gal-trust__num">Reutlingen</span>
+          <span class="gal-trust__lbl">Hauptsitz, BW</span>
         </div>
         <div class="gal-trust__item">
           <span class="gal-trust__num">500</span>
           <span class="gal-trust__lbl">Designs</span>
         </div>
         <div class="gal-trust__item">
-          <span class="gal-trust__num">2.500</span>
+          <span class="gal-trust__num">2.500+</span>
           <span class="gal-trust__lbl">Produkte</span>
         </div>
         </div>
@@ -4982,15 +4982,19 @@ h1,h2,h3,.display{text-wrap:balance;}
       else if(pos === 0){ snap=setTimeout(function(){ jump(N); snap=null; }, 720); }
     }
     apply(1,false); paint(0);
-    var timer=null;
+    var timer=null, hovering=false;
     function next(){ loopStep(1); }
     function prev(){ loopStep(-1); }
-    function start(){ if(reduce||galLbOpen) return; stop(); timer=setInterval(next, 3600); }
+    function start(){ if(reduce||galLbOpen||hovering) return; stop(); timer=setInterval(next, 3600); }
     function stop(){ if(timer){ clearInterval(timer); timer=null; } }
     function restart(){ stop(); start(); }
     if(prevBtn) prevBtn.addEventListener('click', function(){ prev(); restart(); reveal(); });
     if(nextBtn) nextBtn.addEventListener('click', function(){ next(); restart(); reveal(); });
-    if(media){ media.addEventListener('mouseenter', stop); media.addEventListener('mouseleave', start); }
+    // paused while the pointer is over the photo or the thumbnails (a click there doesn't resume it either)
+    [media, railEl].forEach(function(el){ if(!el) return;
+      el.addEventListener('mouseenter', function(){ hovering=true; stop(); });
+      el.addEventListener('mouseleave', function(){ hovering=false; start(); });
+    });
     lbPause.push(stop); lbResume.push(start);
     start();
   })();
