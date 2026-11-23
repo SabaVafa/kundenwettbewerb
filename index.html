@@ -3406,7 +3406,7 @@ main a:not(.btn):not(.pchip){color:var(--color-teal);}
 h1,.h1{font-size:1.875rem; font-weight:700; line-height:1.25; letter-spacing:-0.02em; color:var(--color-digital-black); margin:0 0 1rem;}
 h2,.h2{font-size:1.5rem; font-weight:700; line-height:1.3; letter-spacing:-0.015em; color:var(--color-digital-black); margin:0 0 0.875rem;}
 /* section titles = About-us .section-title: 46px, 36px at 768-1023px, 32px up to 767px */
-.section-title{font-size:2.875rem; line-height:1.15;}
+.section-title{font-size:2.875rem; line-height:1.15; margin-bottom:1.25rem;} /* = About-us heading → intro 20px */
 @media(max-width:1023px){ .section-title{font-size:2.25rem;} }
 @media(max-width:767px){ .section-title{font-size:2rem;} }
 h3,.h3{font-size:1.25rem; font-weight:700; line-height:1.35; letter-spacing:-0.01em; color:var(--color-digital-black); margin:0 0 0.75rem;}
@@ -3414,7 +3414,7 @@ p{margin:0 0 1rem;}
 .body-lg{font-size:1.125rem; line-height:1.5; color:var(--color-graphite-800);}
 .body-sm{font-size:0.875rem; line-height:1.5; color:var(--color-graphite-700);}
 .caption{font-size:0.75rem; line-height:1.4; color:var(--color-graphite-600);}
-.overline{font-size:0.75rem; font-weight:700; line-height:1.4; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-graphite-600); margin:0 0 0.75rem;}
+.overline{font-size:0.75rem; font-weight:700; line-height:1.4; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-graphite-600); margin:0 0 1.25rem;} /* = About-us eyebrow → heading 20px */
 .display{font-size:clamp(2.25rem,5.5vw,3.5rem); font-weight:700; line-height:1.02; letter-spacing:-0.035em; color:var(--color-digital-black); margin:0;}
 
 /* ============ SECTION ============ */
@@ -3591,7 +3591,7 @@ p{margin:0 0 1rem;}
 .gal-count b{color:var(--color-graphite-600);}
 
 /* ============ GALLERY GRID (masonry) ============ */
-.gal-grid-sec{padding:2.25rem 0 5rem;}
+.gal-grid-sec{padding:2.5rem 0 5rem;} /* top = kit .section--sm under the toolbar */
 /* flexbox masonry: real column containers (JS distributes tiles to the shortest one) —
    each column stacks top-down, so there are never top gaps like CSS multi-column leaves */
 .gal-grid{display:flex; align-items:flex-start; gap:1rem;}
@@ -3799,7 +3799,7 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 /* the filter toolbar below adds 1.35rem of its own top padding — trim it here so the gap under the card matches the 4rem above it */
 .gal-winner .container{position:relative; z-index:1;}
 /* spotlight card: dark teal stays the award moment, but contained (not a full-width band) so it doesn't stack heavily under the black hero; phones get a full-width band (see the 48rem block) */
-.gal-winner__grid{display:grid; grid-template-columns:21rem minmax(0,27rem) 1fr; gap:2.5rem; align-items:center; padding:clamp(1.5rem,3vw,3rem); border-radius:var(--radius-xl); overflow:hidden; background:radial-gradient(38rem 38rem at 100% 0%, rgba(1,82,83,0.45), transparent 70%), var(--color-teal-900);}
+.gal-winner__grid{display:grid; grid-template-columns:21rem minmax(0,27rem) 1fr; gap:2.5rem; align-items:center; padding:clamp(2.5rem,3vw,3rem); border-radius:var(--radius-xl); overflow:hidden; background:radial-gradient(38rem 38rem at 100% 0%, rgba(1,82,83,0.45), transparent 70%), var(--color-teal-900);}
 .gal-winner__media{position:relative; margin:0; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:1 / 1; background:var(--color-graphite-800); box-shadow:0 1.25rem 2.5rem rgba(0,0,0,0.4);}
 .gal-winner__track{position:absolute; inset:0; display:flex; height:100%; will-change:transform;}
 .gal-winner__track.is-anim{transition:transform .7s cubic-bezier(.4,0,.2,1);}
@@ -3819,9 +3819,9 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-winner__nav:hover{background:var(--color-white); color:var(--color-digital-black);}
 .gal-winner__nav:active{background:var(--color-white); color:var(--color-digital-black); transform:translateY(-50%) scale(0.94);}
 .gal-winner__nav svg{width:1.05rem; height:1.05rem;}
-.gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; line-height:1.4; color:var(--color-star); margin:0 0 1rem;}
+.gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; line-height:1.4; color:var(--color-star); margin:0 0 1.25rem;}
 .gal-winner__eyebrow svg{width:1rem; height:1rem;}
-.gal-winner__title{font-weight:700; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1rem;}
+.gal-winner__title{font-weight:700; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1.25rem;}
 .gal-winner__lead{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,0.82); margin:0 0 1.5rem; max-width:34rem;}
 .gal-winner__prods-label{font-size:0.6875rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:0 0 0.6rem;}
 .gal-winner__prods{display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.75rem;}
@@ -3856,8 +3856,11 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 @media(max-width:767px){
   .gal-winner__badge{top:0.65rem; left:0.65rem; padding:0.3rem 0.6rem; gap:0.3rem; font-size:0.6875rem;}
   .gal-winner__badge svg{width:0.85rem; height:0.85rem;}
-  /* full-width band: bleed past the container gutter, keep the content on the page gutter */
-  .gal-winner__grid{margin-inline:calc(-1 * clamp(var(--sp-6), 4vw, 56px)); padding:2.5rem clamp(var(--sp-6), 4vw, 56px); border-radius:0;}
+  /* full-width band: bleed past the container gutter, keep the content on the page gutter.
+     As a full-bleed coloured section it holds the 80px section padding inside its own background
+     (like the About-us sections), so no white strip is left above or below it */
+  .gal-winner.section{padding-block:0;}
+  .gal-winner__grid{margin-inline:calc(-1 * clamp(var(--sp-6), 4vw, 56px)); padding:5rem clamp(var(--sp-6), 4vw, 56px); border-radius:0;}
   .gal-winner__credit{padding:2.25rem 0.8rem 0.7rem; font-size:0.8125rem;}
   .gal-winner__counter{right:0.7rem; bottom:0.7rem;}
   /* full-width stacked CTAs on mobile */
