@@ -3504,6 +3504,9 @@ p{margin:0 0 1rem;}
   .gal-trust .strip-arrow{display:grid;}
   .gal-trust .strip-arrow--prev{left:clamp(var(--sp-6),4vw,3.5rem);}
   .gal-trust .strip-arrow--next{right:clamp(var(--sp-6),4vw,3.5rem);}
+  /* everything fits (e.g. all 5 stats at ~900px): spread them across the width, no arrows (.fits set by JS) */
+  .gal-trust .strip-viewport.fits .gal-trust__grid{justify-content:space-evenly;}
+  .gal-trust .strip-viewport.fits .strip-arrow{display:none;}
 }
 @media(max-width:767px){
   .gal-trust__grid{gap:3rem; padding-block:2rem;}
@@ -3690,6 +3693,8 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-lb__iconbtn:hover{border-color:var(--color-teal); color:var(--color-teal);}
 .gal-lb__iconbtn.is-on{color:var(--color-metzler-rot); border-color:var(--color-metzler-rot);}
 .gal-lb__iconbtn svg{width:1.05rem; height:1.05rem;}
+/* more products below the visible part of the body (short phones): soft fade at its bottom edge (.has-more set by JS) */
+.gal-lb__body.has-more{-webkit-mask-image:linear-gradient(to bottom, #000 calc(100% - 3rem), transparent); mask-image:linear-gradient(to bottom, #000 calc(100% - 3rem), transparent);}
 @media(max-width:52rem){
   /* mobile: centered sheet (matches the PDP Bewertungen .rvw-lb) — header fixed
      on top, image a fixed 45% share, review/product body scrolls beneath */
@@ -3793,6 +3798,7 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-steps__title + .gal-steps{margin-top:1rem;}
 .gal-ugc__lead{color:var(--color-graphite-700); max-width:34rem;}
 @media(max-width:1023px){ .gal-ugc__grid{grid-template-columns:1fr;} } /* one column below 1024px, as About-us */
+@media(min-width:768px) and (max-width:1023px){ .gal-ugc__grid{max-width:42rem; margin-inline:auto;} } /* tablets: one centred column at a readable width (~70 characters a line) */
 
 /* ============ SIEGERBILD DES MONATS (winner spotlight) ============ */
 .gal-winner{background:var(--color-white); color:var(--color-white); position:relative;}
@@ -3821,7 +3827,10 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-winner__nav svg{width:1.05rem; height:1.05rem;}
 .gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; line-height:1.4; color:var(--color-star); margin:0 0 1.25rem;}
 .gal-winner__eyebrow svg{width:1rem; height:1rem;}
-.gal-winner__title{font-weight:700; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1.25rem;}
+.gal-winner__title{font-size:2rem; line-height:1.2; font-weight:700; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1.25rem;}
+/* card heading beside the photo: one step below the page-wide section titles (46/36/32) — 32px, 28px on tablets, 24px (kit H2) on phones */
+@media(max-width:1023px){ .gal-winner__title{font-size:1.75rem;} }
+@media(max-width:767px){ .gal-winner__title{font-size:1.5rem;} }
 .gal-winner__lead{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,0.82); margin:0 0 1.5rem; max-width:34rem;}
 .gal-winner__prods-label{font-size:0.6875rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:0 0 0.6rem;}
 .gal-winner__prods{display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.75rem;}
@@ -4766,6 +4775,11 @@ h1,h2,h3,.display{text-wrap:balance;}
   var lbByLine = document.getElementById('lbByLine');
   var lbProds = document.getElementById('lbProds');
   var lbFlagText = document.getElementById('lbFlagText');
+  var lbBody = document.querySelector('.gal-lb__body');
+  function lbFade(){ if(lbBody) lbBody.classList.toggle('has-more', lbBody.scrollTop + lbBody.clientHeight < lbBody.scrollHeight - 4); }
+  if(lbBody){ lbBody.addEventListener('scroll', lbFade, { passive:true }); window.addEventListener('resize', lbFade); }
+  // product rows for the open photo; each photo starts at the top of the list, the fade is measured once it is laid out
+  function lbShowProds(prods){ lbProds.innerHTML = prodRows(prods); if(lbBody){ lbBody.scrollTop = 0; setTimeout(lbFade, 0); } }
   // tag "Gewinnerfoto · <Monat>" and the "Eingereicht von <Name>" line (hidden when unknown)
   function setLbMeta(date, by){
     if(lbFlagText) lbFlagText.textContent = date ? 'Gewinnerfoto · ' + date : 'Gewinnerfoto';
@@ -4785,7 +4799,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     setLbMeta(item.date, item.by);
     var vis = visibleIndexes(); var pos = vis.indexOf(i);
     lbCounter.textContent = (pos<0?1:pos+1) + '/' + (vis.length||GALLERY.length);
-    lbProds.innerHTML = prodRows(item.prods);
+    lbShowProds(item.prods);
   }
   var lbPrevBtn = document.getElementById('lbPrev');
   var lbNextBtn = document.getElementById('lbNext');
@@ -4822,7 +4836,7 @@ h1,h2,h3,.display{text-wrap:balance;}
     var cap = sd.cap || (item?item.cap:'Gewinnerfoto aus dem Metzler Fotowettbewerb');
     var prods = (item?item.prods:null) || sd.prods || [];
     lbImg.src=sd.src; lbImg.alt=cap; lbBlur.src=sd.src; setLbMeta(sd.date, sd.by);
-    lbProds.innerHTML = prodRows(prods);
+    lbShowProds(prods);
     if(lbProdsLabel) lbProdsLabel.style.display = prods.length ? '' : 'none';
     setLbMode(true);
     galLbOpen=true; lbPause.forEach(function(f){ f(); });
@@ -5000,6 +5014,7 @@ h1,h2,h3,.display{text-wrap:balance;}
         btn.addEventListener('click', function(){ step(btn.getAttribute('data-strip-scroll')==='next' ? 1 : -1); });
       });
       function update(){
+        vp.classList.toggle('fits', scroller.scrollWidth <= scroller.clientWidth + 1);
         var first = scroller.firstElementChild;
         var startT = first ? first.offsetLeft : 0;
         var atStart = scroller.scrollLeft <= startT + 4;
@@ -5009,6 +5024,9 @@ h1,h2,h3,.display{text-wrap:balance;}
       }
       scroller.addEventListener('scroll', update, { passive:true });
       window.addEventListener('resize', update);
+      // also re-check when the strip itself changes size or the web font arrives
+      if(window.ResizeObserver) new ResizeObserver(update).observe(scroller);
+      if(document.fonts && document.fonts.ready) document.fonts.ready.then(update);
       update();
     });
   })();
