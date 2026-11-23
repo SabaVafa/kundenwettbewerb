@@ -3405,6 +3405,10 @@ main a:not(.btn):not(.pchip){color:var(--color-teal);}
 /* ============ TYPE ============ */
 h1,.h1{font-size:1.875rem; font-weight:700; line-height:1.25; letter-spacing:-0.02em; color:var(--color-digital-black); margin:0 0 1rem;}
 h2,.h2{font-size:1.5rem; font-weight:700; line-height:1.3; letter-spacing:-0.015em; color:var(--color-digital-black); margin:0 0 0.875rem;}
+/* section titles = About-us .section-title: 46px, 36px at 768-1023px, 32px up to 767px */
+.section-title{font-size:2.875rem; line-height:1.15;}
+@media(max-width:1023px){ .section-title{font-size:2.25rem;} }
+@media(max-width:767px){ .section-title{font-size:2rem;} }
 h3,.h3{font-size:1.25rem; font-weight:700; line-height:1.35; letter-spacing:-0.01em; color:var(--color-digital-black); margin:0 0 0.75rem;}
 p{margin:0 0 1rem;}
 .body-lg{font-size:1.125rem; line-height:1.5; color:var(--color-graphite-800);}
@@ -3414,7 +3418,7 @@ p{margin:0 0 1rem;}
 .display{font-size:clamp(2.25rem,5.5vw,3.5rem); font-weight:700; line-height:1.02; letter-spacing:-0.035em; color:var(--color-digital-black); margin:0;}
 
 /* ============ SECTION ============ */
-.section{padding:4rem 0;}
+.section{padding:5rem 0;} /* = About-us .about .section: 80px top and bottom */
 .section--sm{padding:2.5rem 0;}
 .section--tinted{background:var(--color-paper);}
 .section--white{background:var(--color-white);}
@@ -3471,7 +3475,7 @@ p{margin:0 0 1rem;}
 /* Full-width trust / stats band */
 .gal-trust{background:var(--color-white); border-bottom:0.0625rem solid var(--color-graphite-300);}
 .gal-trust .strip-viewport{position:relative;}
-.gal-trust__grid{display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(3rem,8vw,8rem); padding:2.75rem 0;}
+.gal-trust__grid{display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(3rem,8vw,8rem); padding:2rem 0;}
 .gal-trust__item{display:flex; flex-direction:column; align-items:center; text-align:center; gap:0.35rem;}
 .gal-trust__num{display:inline-flex; align-items:center; gap:0.35rem; font-size:clamp(1.25rem,1.6vw,1.5rem); font-weight:700; letter-spacing:-0.02em; line-height:1; color:var(--color-digital-black); font-variant-numeric:tabular-nums;}
 /* icon sized in em so it tracks the number and never exceeds its height —
@@ -3501,7 +3505,7 @@ p{margin:0 0 1rem;}
   .gal-trust .strip-arrow--prev{left:clamp(var(--sp-6),4vw,3.5rem);}
   .gal-trust .strip-arrow--next{right:clamp(var(--sp-6),4vw,3.5rem);}
 }
-@media(max-width:48rem){
+@media(max-width:767px){
   .gal-trust__grid{gap:3rem; padding-block:2rem;}
 }
 
@@ -3538,7 +3542,7 @@ p{margin:0 0 1rem;}
 /* responsive: below 1280px the split gets too short for the copy — stack the
    carousel on top (full-bleed 16/9) like the About-Us hero, copy below */
 @media(max-width:1279px){ .gal-hero__grid{grid-template-columns:1fr; gap:clamp(1.5rem,3vw,3.5rem); aspect-ratio:auto; padding-block:0;} .gal-hero__copy{max-width:none; align-self:auto; padding-block:clamp(3rem,8vw,4rem);} .gal-hero .overline{margin-bottom:1.5rem;} .gal-hero .display{margin-bottom:2.25rem;} .gal-hero__chips{margin-bottom:1.4375rem;} .gal-hero__lead{margin-bottom:3.75rem;} .gal-hero__stage{display:block; order:-1; margin-inline:calc(-1 * clamp(1.5rem, 4vw, 3.5rem));} .gal-hero__slider{height:auto; aspect-ratio:16 / 9; min-height:0;} .gal-hero__meta{margin-top:0.75rem;} }
-@media(max-width:48rem){ .gal-hero__grid{row-gap:0;} .gal-hero__copy{padding-block:2.5rem;} .gal-hero__lead{margin-bottom:3.25rem;} .gal-hero .display{font-size:min(2rem, 9vw);} .gal-hero__meta{justify-content:center; text-align:center;} .gal-hero__slider{aspect-ratio:3 / 2;} .gal-hero__cta{flex-direction:column;} .gal-hero__cta .btn{max-width:none; width:100%; height:auto; min-height:2.625rem; padding-inline:1rem; white-space:normal;} }
+@media(max-width:767px){ .gal-hero__grid{row-gap:0;} .gal-hero__copy{padding-block:2.5rem;} .gal-hero__lead{margin-bottom:3.25rem;} .gal-hero .display{font-size:min(2rem, 9vw);} .gal-hero__meta{justify-content:center; text-align:center;} .gal-hero__slider{aspect-ratio:3 / 2;} .gal-hero__cta{flex-direction:column;} .gal-hero__cta .btn{max-width:none; width:100%; height:auto; min-height:2.625rem; padding-inline:1rem; white-space:normal;} }
 @media(prefers-reduced-motion:reduce){ .gal-hero__copy > *, .gal-hero__stage{animation:none;} }
 
 /* ============ FILTER TOOLBAR ============ */
@@ -3587,7 +3591,7 @@ p{margin:0 0 1rem;}
 .gal-count b{color:var(--color-graphite-600);}
 
 /* ============ GALLERY GRID (masonry) ============ */
-.gal-grid-sec{padding:2.25rem 0 4rem;}
+.gal-grid-sec{padding:2.25rem 0 5rem;}
 /* flexbox masonry: real column containers (JS distributes tiles to the shortest one) —
    each column stacks top-down, so there are never top gaps like CSS multi-column leaves */
 .gal-grid{display:flex; align-items:flex-start; gap:1rem;}
@@ -3660,8 +3664,9 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 /* Right column — head (title + close) over scrollable body */
 .gal-lb__head{grid-column:2; grid-row:1; min-width:0; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.9rem clamp(1.35rem,2.4vw,1.9rem); border-bottom:0.0625rem solid var(--color-graphite-300);}
 .gal-lb__headtitle{margin:0; font-size:1.25rem; font-weight:700; line-height:1.35; letter-spacing:-0.01em; color:var(--color-digital-black);}
-.gal-lb__close{flex:none; width:2.25rem; height:2.25rem; margin-right:-0.5625rem; display:grid; place-items:center; cursor:pointer; color:var(--color-graphite-600); background:transparent; border:0; border-radius:var(--radius); transition:background .15s;}
-.gal-lb__close:hover{background:var(--color-graphite-100);}
+/* close = the kit's one close button for every dialog (Modal: .modal-close / .rvw-lb__close): 2.25rem, NAV-03 at 18px */
+.gal-lb__close{flex:none; width:2.25rem; height:2.25rem; margin-right:-0.8672rem; display:grid; place-items:center; cursor:pointer; color:var(--color-graphite-600); background:transparent; border:0; border-radius:var(--radius); transition:background .15s, color .15s;}
+.gal-lb__close:hover, .gal-lb__close:focus-visible{background:var(--color-graphite-100); color:var(--color-digital-black); outline:none;}
 .gal-lb__close svg{width:1.125rem; height:1.125rem;}
 .gal-lb__headactions{display:flex; align-items:center; gap:0.5rem;}
 .gal-lb__share{display:inline-flex; align-items:center; gap:0.4rem; height:2.125rem; padding:0 0.75rem; border-radius:var(--radius); border:0.0625rem solid var(--color-graphite-300); background:var(--color-white); color:var(--color-graphite-700); font-size:0.8125rem; font-weight:600; cursor:pointer; transition:all .14s;}
@@ -3690,21 +3695,17 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
      on top, image a fixed 45% share, review/product body scrolls beneath */
   .gal-lb__dialog{display:flex; flex-direction:column; width:min(30rem,100%); height:90vh; height:90dvh; max-height:90dvh; overflow:hidden;}
   .gal-lb__head{order:1; flex:none;}
-  .gal-lb__close{width:2.75rem; height:2.75rem; margin-right:-0.8125rem;}
   .gal-lb__stage{order:2; flex:none; height:45%;}
   .gal-lb__body{order:3; flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch;}
   .gal-lb__nav{width:2.75rem; height:2.75rem;}
   .gal-lb__nav svg{width:1.3rem; height:1.3rem;}
-  .gal-lb__share{height:2.75rem;}
 }
-/* touch screens that get the side-by-side layout (landscape phones, tablets): 44px targets */
-@media(pointer:coarse){ .gal-lb__share{height:2.75rem;} .gal-lb__close{width:2.75rem; height:2.75rem; margin-right:-0.8125rem;} }
 /* very narrow: "Teilen" as an icon button (the text stays its accessible name) so title, share and close fit */
-@media(max-width:24rem){ .gal-lb__share{width:2.75rem; padding:0; gap:0; justify-content:center; font-size:0;} }
+@media(max-width:24rem){ .gal-lb__share{width:2.125rem; padding:0; gap:0; justify-content:center; font-size:0;} }
 @media (prefers-reduced-motion: reduce){ .gal-lb__dialog{animation:none;} }
 
 /* ============ UGC ============ */
-.gal-ugc__grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:start;}
+.gal-ugc__grid{display:grid; grid-template-columns:1.05fr 1fr; gap:clamp(2rem,4vw,3rem); align-items:start;}
 .gal-ugc__grid > *{min-width:0;} /* allow columns to shrink below content min on narrow screens */
 .gal-ugc__card{background:var(--color-white); border:0.0625rem solid var(--color-graphite-200); border-radius:var(--radius-lg); box-shadow:var(--shadow-card); padding:1.75rem; container-type:inline-size;}
 /* ===== Eingabefelder · Developer Handoff 10.11.2026 (Metzler UI Kit 1.64, Form Elements › Textfield) =====
@@ -3758,7 +3759,7 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 /* full-width submit: label on one line down to 360px (with the phone card padding below); narrower screens
    wrap it onto two lines in a taller button instead of squeezing it into the kit height */
 .gal-ugc__card .btn-block{padding-inline:1rem; height:auto; min-height:2.625rem;}
-@media(max-width:48rem){ .gal-ugc__card{padding:1.25rem;} }
+@media(max-width:767px){ .gal-ugc__card{padding:1.25rem;} }
 #ugcForm:focus{outline:none;} /* focused by the step-2 "Formular" link so Tab continues in the form */
 .gal-drop{border:0.125rem dashed var(--color-graphite-400); border-radius:var(--radius-lg); background:var(--color-paper); padding:1.5rem; text-align:center; cursor:pointer; transition:border-color .14s, background .14s;}
 .gal-drop:hover{border-color:var(--color-teal); background:var(--color-teal-50);}
@@ -3787,15 +3788,15 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-steps__d a{color:var(--color-teal); text-decoration:underline; text-underline-offset:0.15em;}
 .gal-steps__d a:hover{color:var(--color-teal-600);}
 .gal-steps__d strong{font-weight:600; color:var(--color-digital-black);}
-.gal-steps__title{margin:2rem 0 0; font-size:1.125rem; font-weight:700; line-height:1.375; color:var(--color-digital-black);}
+.gal-steps__title{margin:2rem 0 0; font-size:1.25rem; font-weight:700; line-height:1.35; color:var(--color-digital-black);}
+@media(max-width:767px){ .gal-steps__title{font-size:1.125rem;} } /* = About-us h3: 20px, 18px on phones */
 .gal-steps__title + .gal-steps{margin-top:1rem;}
 .gal-ugc__lead{color:var(--color-graphite-700); max-width:34rem;}
-@media(max-width:60rem){ .gal-ugc__grid{grid-template-columns:1fr; gap:2rem;} }
+@media(max-width:1023px){ .gal-ugc__grid{grid-template-columns:1fr;} } /* one column below 1024px, as About-us */
 
 /* ============ SIEGERBILD DES MONATS (winner spotlight) ============ */
 .gal-winner{background:var(--color-white); color:var(--color-white); position:relative;}
 /* the filter toolbar below adds 1.35rem of its own top padding — trim it here so the gap under the card matches the 4rem above it */
-.section.gal-winner{padding-bottom:calc(4rem - 1.35rem);}
 .gal-winner .container{position:relative; z-index:1;}
 /* spotlight card: dark teal stays the award moment, but contained (not a full-width band) so it doesn't stack heavily under the black hero; phones get a full-width band (see the 48rem block) */
 .gal-winner__grid{display:grid; grid-template-columns:21rem minmax(0,27rem) 1fr; gap:2.5rem; align-items:center; padding:clamp(1.5rem,3vw,3rem); border-radius:var(--radius-xl); overflow:hidden; background:radial-gradient(38rem 38rem at 100% 0%, rgba(1,82,83,0.45), transparent 70%), var(--color-teal-900);}
@@ -3818,10 +3819,10 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
 .gal-winner__nav:hover{background:var(--color-white); color:var(--color-digital-black);}
 .gal-winner__nav:active{background:var(--color-white); color:var(--color-digital-black); transform:translateY(-50%) scale(0.94);}
 .gal-winner__nav svg{width:1.05rem; height:1.05rem;}
-.gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-star); margin:0 0 1rem;}
+.gal-winner__eyebrow{display:inline-flex; align-items:center; gap:0.45rem; font-size:0.75rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; line-height:1.4; color:var(--color-star); margin:0 0 1rem;}
 .gal-winner__eyebrow svg{width:1rem; height:1rem;}
-.gal-winner__title{font-size:clamp(1.5rem,2.6vw,2.05rem); font-weight:700; line-height:1.25; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1rem;}
-.gal-winner__lead{font-size:1rem; line-height:1.7; color:rgba(255,255,255,0.82); margin:0 0 1.5rem; max-width:34rem;}
+.gal-winner__title{font-weight:700; letter-spacing:-0.015em; color:var(--color-white); margin:0 0 1rem;}
+.gal-winner__lead{font-size:1.125rem; line-height:1.5; color:rgba(255,255,255,0.82); margin:0 0 1.5rem; max-width:34rem;}
 .gal-winner__prods-label{font-size:0.6875rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin:0 0 0.6rem;}
 .gal-winner__prods{display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.75rem;}
 .gal-winner .pchip{background:rgba(255,255,255,0.96); font-size:0.8125rem; padding:0.35rem 0.8rem;}
@@ -3851,16 +3852,12 @@ html.gal-lb-lock body{position:fixed; left:0; right:0; width:100%; overflow:hidd
   .gal-winner__thumb{scroll-snap-align:start;}
 }
 /* one column: photo, then its thumbnails right under it, then the text */
-@media(max-width:60rem){ .gal-winner__grid{grid-template-columns:1fr; gap:2rem;} .gal-winner__media{order:-1;} .gal-winner__railwrap{order:-1; margin-top:-0.5rem;} }
-@media(max-width:48rem){
+@media(max-width:1023px){ .gal-winner__grid{grid-template-columns:1fr; gap:2rem;} .gal-winner__media{order:-1;} .gal-winner__railwrap{order:-1; margin-top:-0.5rem;} }
+@media(max-width:767px){
   .gal-winner__badge{top:0.65rem; left:0.65rem; padding:0.3rem 0.6rem; gap:0.3rem; font-size:0.6875rem;}
   .gal-winner__badge svg{width:0.85rem; height:0.85rem;}
   /* full-width band: bleed past the container gutter, keep the content on the page gutter */
   .gal-winner__grid{margin-inline:calc(-1 * clamp(var(--sp-6), 4vw, 56px)); padding:2.5rem clamp(var(--sp-6), 4vw, 56px); border-radius:0;}
-  /* the band butts against the trust strip (its own 2rem padding is the space above; no divider needed
-     against the dark edge) and keeps the same 2rem to the filter chips below (1rem here + the bar's 1rem) */
-  .section.gal-winner{padding-top:0; padding-bottom:1rem;}
-  .gal-trust{border-bottom:0;}
   .gal-winner__credit{padding:2.25rem 0.8rem 0.7rem; font-size:0.8125rem;}
   .gal-winner__counter{right:0.7rem; bottom:0.7rem;}
   /* full-width stacked CTAs on mobile */
@@ -4138,7 +4135,7 @@ h1,h2,h3,.display{text-wrap:balance;}
         </div>
         <div class="gal-winner__body">
           <p class="gal-winner__eyebrow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><span data-winner-eyebrow>Gewinner</span></p>
-          <h2 id="winner-heading" class="gal-winner__title">Unsere bisherigen Gewinnerfotos</h2>
+          <h2 id="winner-heading" class="gal-winner__title section-title">Unsere bisherigen Gewinnerfotos</h2>
           <p class="gal-winner__lead">Unser Fotowettbewerb startet neu: Ab sofort kürt unser Team wieder jeden Monat das schönste Kundenfoto zum Gewinnerfoto des Monats.</p>
           <div class="gal-winner__cta">
             <a href="#mitmachen" class="btn btn-primary">Jetzt mitmachen</a>
@@ -4189,7 +4186,7 @@ h1,h2,h3,.display{text-wrap:balance;}
       <div class="gal-ugc__grid">
         <div>
           <p class="overline">Metzler Fotowettbewerb</p>
-          <h2>Zeigen Sie uns Ihr Metzler-Zuhause</h2>
+          <h2 class="section-title">Zeigen Sie uns Ihr Metzler-Zuhause</h2>
           <p class="body-lg gal-ugc__lead">Mitmachen können alle, die bei Metzler bestellt haben. Jeden Monat wählt unser Team das schönste Foto aus allen Einsendungen.</p>
           <div class="gal-prize">
             <span class="gal-prize__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13"/><path d="M12 8S9.5 8 8.4 6.6 8.6 3.4 10 4s2 4 2 4zM12 8s2.5 0 3.6-1.4S15.4 3.4 14 4s-2 4-2 4z"/></svg></span>
@@ -4391,7 +4388,7 @@ h1,h2,h3,.display{text-wrap:balance;}
       <h3 class="gal-lb__headtitle">Gewinnergalerie</h3>
       <div class="gal-lb__headactions">
         <button class="gal-lb__share" id="lbShare" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>Teilen</button>
-        <button class="gal-lb__close" id="lbClose" aria-label="Schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <button class="gal-lb__close" id="lbClose" type="button" aria-label="Schließen"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>
       </div>
     </div>
     <div class="gal-lb__body">
